@@ -32,14 +32,15 @@ public class ArrayStorage {
         }
     }
 
-    void update(String uuid) {
+    void update(String uuid, Resume r) {
         for (int i = 0; i < sizeOfResume; i++) {
-            if (storage[i].uuid.equals(uuid)){
-                System.out.println("Резюме " + uuid + " найдено");
+            if (storage[i].uuid.equals(uuid)) {
+                storage[i] = r;
+                System.out.println("Резюме " + uuid + " заменилось на " + r.uuid);
                 return;
             }
         }
-        System.out.println("Резюме " + uuid + " не существует");
+        System.out.println("Резюме " + r.uuid + " не существует");
     }
 
     Resume get(String uuid) {
