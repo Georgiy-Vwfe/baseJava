@@ -4,43 +4,32 @@ public class ArrayStorage {
     /**
      * Array based storage for Resumes
      */
-    private Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10_000];
     private int sizeOfResume = 0;
 
     void clear() {
-        for (int i = 0; i < sizeOfResume; i++) {
-            storage[i] = null;
-        }
-        sizeOfResume = 0;
+        body(null, null,"clear");
     }
 
-    void save(Resume r) {
+    void save(Resume resume) {
         for (int i = 0; i < sizeOfResume; i++) {
-            if (storage[i].uuid.equals(r.uuid)) {
-                System.out.println("Резюме " + r.uuid + " уже введено");
+            if (storage[i].uuid.equals(resume.uuid)) {
+                System.out.println("Резюме " + resume.uuid + " уже введено");
                 return;
             }
         }
         if (sizeOfResume < storage.length) {
-            storage[sizeOfResume] = r;
+            storage[sizeOfResume] = resume;
             sizeOfResume++;
-            return;
-        }
-        if (sizeOfResume == storage.length) {
+        } else if (sizeOfResume == storage.length) {
             System.out.println("Массив полон");
-            return;
         }
     }
 
-    void update(String uuid, Resume r) {
-        for (int i = 0; i < sizeOfResume; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                storage[i] = r;
-                System.out.println("Резюме " + uuid + " заменилось на " + r.uuid);
-                return;
-            }
-        }
-        System.out.println("Резюме " + r.uuid + " не существует");
+    Resume update(Resume resume) {
+        //bugs in update
+        body(null,resume,"update");
+        return null;
     }
 
     Resume get(String uuid) {
@@ -54,15 +43,9 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < sizeOfResume; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                storage[i] = storage[sizeOfResume - 1];
-                storage[sizeOfResume - 1] = null;
-                sizeOfResume--;
-                return;
-            }
+        if (!body(uuid, null, "delete")) {
+            System.out.println("Резюме " + uuid + " не существует");
         }
-        System.out.println("Резюме " + uuid + " не существует");
     }
 
     /**
@@ -74,5 +57,43 @@ public class ArrayStorage {
 
     int size() {
         return sizeOfResume;
+    }
+
+    boolean body(String uuid, Resume resume, String nameOfFunction) {
+        for (int i = 0; i < sizeOfResume; i++) {
+            if (storage[i].uuid.equals(uuid)) {
+                switch (nameOfFunction) {
+                    case "delete": {
+                        storage[i] = storage[sizeOfResume - 1];
+                        storage[sizeOfResume - 1] = null;
+                        sizeOfResume--;
+                        return true;
+                    }
+                    case "update": {
+                        storage[i] = resume;
+                        System.out.println("Резюме " + resume.uuid + " заменилось на " + resume.uuid);
+                        return true;
+                    }
+                    default:
+                        break;
+                }
+            }
+        }
+        switch (nameOfFunction) {
+            case "delete": {
+                return false;
+            }
+            case "clear": {
+                for (int i = 0; i < sizeOfResume; i++) {
+                    storage[i] = null;
+                }
+                sizeOfResume = 0;
+                return true;
+            }
+            case "update":{
+                System.out.println("Резюме " + resume.uuid + " не существует");
+            }
+        }
+        return true;
     }
 }
