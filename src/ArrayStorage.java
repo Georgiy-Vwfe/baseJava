@@ -11,15 +11,13 @@ public class ArrayStorage {
     }
 
     void save(Resume resume) {
-        if (getIndex(resume.getUuid()) != -1){
+        if (getIndex(resume.getUuid()) != -1) {
             System.out.println("Резюме " + resume.getUuid() + " уже введено");
-            return;
-        }
-        if (sizeOfResume < storage.length) {
-            storage[sizeOfResume] = resume;
-            sizeOfResume++;
         } else if (sizeOfResume == storage.length) {
             System.out.println("Массив полон");
+        } else if (sizeOfResume < storage.length) {
+            storage[sizeOfResume] = resume;
+            sizeOfResume++;
         }
     }
 
