@@ -1,23 +1,19 @@
 import java.util.Arrays;
 
 public class ArrayStorage {
-    /**
-     * Array based storage for Resumes
-     */
+
     private Resume[] storage = new Resume[10_000];
     private int sizeOfResume = 0;
 
     void clear() {
-        for (int i = 0; i < sizeOfResume; i++) {
-            storage[i] = null;
-        }
+        Arrays.fill(storage, null);
         sizeOfResume = 0;
     }
 
     void save(Resume resume) {
         for (int i = 0; i < sizeOfResume; i++) {
-            if (storage[i].uuid.equals(resume.uuid)) {
-                System.out.println("Резюме " + resume.uuid + " уже введено");
+            if (storage[i].getUuid().equals(resume.getUuid())) {
+                System.out.println("Резюме " + resume.getUuid() + " уже введено");
                 return;
             }
         }
@@ -30,36 +26,33 @@ public class ArrayStorage {
     }
 
     void update(Resume resume) {
-        get() = resume;
-        System.out.println("Резюме " + resume.uuid + " заменилось на " + resume.uuid);
-    }
-
-    int getForUpdate(String uuid) {
-        for (int i = 0; i < sizeOfResume; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                return i;
-            }
+        int i = getIndex(resume.getUuid());
+        if (i == -1) {
+            System.out.println("Резюме " + resume.getUuid() + " не существует");
+        } else {
+            System.out.println("Резюме " + resume.getUuid() + " заменилось на " + resume.getUuid());
+            storage[i] = resume;
         }
-        return -1;
     }
 
     Resume get(String uuid) {
-        for (int i = 0; i < sizeOfResume; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                return storage[i];
-            }
-        }
-        System.out.println("Резюме " + uuid + " не существует");
-        return null;
+        int i = getIndex(uuid);
+        if (i == -1) {
+            System.out.println("Резюме " + uuid + " не существует");
+            return null;
+        } else return storage[i];
     }
 
     void delete(String uuid) {
-        storage[forAndIf(uuid)] = storage[sizeOfResume - 1];
-        storage[sizeOfResume - 1] = null;
-        sizeOfResume--;
-        if (forAndIf(uuid) == -1) {
+        int i = getIndex(uuid);
+        if (i == -1) {
             System.out.println("Резюме " + uuid + " не существует");
+        } else {
+            storage[i] = storage[sizeOfResume - 1];
+            storage[sizeOfResume - 1] = null;
+            sizeOfResume--;
         }
+
     }
 
     /**
@@ -73,9 +66,9 @@ public class ArrayStorage {
         return sizeOfResume;
     }
 
-    int forAndIf(String uuid) {
+    private int getIndex(String uuid) {
         for (int i = 0; i < sizeOfResume; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 return i;
             }
         }
@@ -96,5 +89,4 @@ public class ArrayStorage {
 //            }
 //        }
 //    }
-
 }
