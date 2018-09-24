@@ -6,16 +6,14 @@ public class ArrayStorage {
     private int sizeOfResume = 0;
 
     void clear() {
-        Arrays.fill(storage, null);
+        Arrays.fill(storage, 0, sizeOfResume, null);
         sizeOfResume = 0;
     }
 
     void save(Resume resume) {
-        for (int i = 0; i < sizeOfResume; i++) {
-            if (storage[i].getUuid().equals(resume.getUuid())) {
-                System.out.println("Резюме " + resume.getUuid() + " уже введено");
-                return;
-            }
+        if (getIndex(resume.getUuid()) != -1){
+            System.out.println("Резюме " + resume.getUuid() + " уже введено");
+            return;
         }
         if (sizeOfResume < storage.length) {
             storage[sizeOfResume] = resume;
@@ -39,7 +37,9 @@ public class ArrayStorage {
         if (i == -1) {
             System.out.println("Резюме " + uuid + " не существует");
             return null;
-        } else return storage[i];
+        } else {
+            return storage[i];
+        }
     }
 
     void delete(String uuid) {
@@ -73,19 +73,4 @@ public class ArrayStorage {
         }
         return -1;
     }
-
-//    Runnable r1 = new Runnable() {
-//        @Override
-//        public void run() {
-//
-//        }
-//    };
-//
-//    public void loop(Runnable runnable, String uuid) {
-//        for (int i = 0; i < sizeOfResume; i++) {
-//            if (storage[i].uuid.equals(uuid)) {
-//                runnable.run();
-//            }
-//        }
-//    }
 }
