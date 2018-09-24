@@ -30,7 +30,6 @@ public class ArrayStorage {
         if (i == -1) {
             System.out.println("Резюме " + resume.getUuid() + " не существует");
         } else {
-            System.out.println("Резюме " + resume.getUuid() + " заменилось на " + resume.getUuid());
             storage[i] = resume;
         }
     }
