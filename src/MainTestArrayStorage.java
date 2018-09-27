@@ -1,8 +1,12 @@
+import ru.model.Resume;
+import ru.storage.ArrayStorage;
+import ru.storage.Storage;
+
 /**
- * Test for your ArrayStorage implementation
+ * Test for your ru.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    static final Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume();
