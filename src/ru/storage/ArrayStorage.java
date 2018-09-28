@@ -5,11 +5,7 @@ import ru.model.Resume;
 import static java.util.Arrays.copyOfRange;
 import static java.util.Arrays.fill;
 
-public class ArrayStorage implements Storage{
-
-    private static final int STORAGE_LIMIT = 10_000;
-    private Resume[] storage = new Resume[STORAGE_LIMIT];
-    private int sizeOfResume = 0;
+public class ArrayStorage extends AbstractArrayStorage{
 
     public void clear() {
         fill(storage, 0, sizeOfResume, null);
@@ -36,16 +32,6 @@ public class ArrayStorage implements Storage{
         }
     }
 
-    public Resume get(String uuid) {
-        int i = getIndex(uuid);
-        if (i == -1) {
-            System.out.println("Резюме " + uuid + " не существует");
-            return null;
-        } else {
-            return storage[i];
-        }
-    }
-
     public void delete(String uuid) {
         int i = getIndex(uuid);
         if (i == -1) {
@@ -65,11 +51,7 @@ public class ArrayStorage implements Storage{
         return copyOfRange(storage, 0, sizeOfResume);
     }
 
-    public int size() {
-        return sizeOfResume;
-    }
-
-    private int getIndex(String uuid) {
+    protected int getIndex(String uuid) {
         for (int i = 0; i < sizeOfResume; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
