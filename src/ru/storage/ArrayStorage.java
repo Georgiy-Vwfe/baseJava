@@ -2,11 +2,7 @@ package ru.storage;
 
 import ru.model.Resume;
 
-import static java.util.Arrays.copyOfRange;
-import static java.util.Arrays.fill;
-
 public class ArrayStorage extends AbstractArrayStorage{
-
     public void save(Resume resume) {
         if (getIndex(resume.getUuid()) != -1) {
             System.out.println("Резюме " + resume.getUuid() + " уже введено");
@@ -17,16 +13,6 @@ public class ArrayStorage extends AbstractArrayStorage{
             sizeOfResume++;
         }
     }
-
-    public void update(Resume resume) {
-        int i = getIndex(resume.getUuid());
-        if (i == -1) {
-            System.out.println("Резюме " + resume.getUuid() + " не существует");
-        } else {
-            storage[i] = resume;
-        }
-    }
-
     public void delete(String uuid) {
         int i = getIndex(uuid);
         if (i == -1) {
