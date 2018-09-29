@@ -7,11 +7,6 @@ import static java.util.Arrays.fill;
 
 public class ArrayStorage extends AbstractArrayStorage{
 
-    public void clear() {
-        fill(storage, 0, sizeOfResume, null);
-        sizeOfResume = 0;
-    }
-
     public void save(Resume resume) {
         if (getIndex(resume.getUuid()) != -1) {
             System.out.println("Резюме " + resume.getUuid() + " уже введено");
@@ -47,9 +42,6 @@ public class ArrayStorage extends AbstractArrayStorage{
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    public Resume[] getAll() {
-        return copyOfRange(storage, 0, sizeOfResume);
-    }
 
     protected int getIndex(String uuid) {
         for (int i = 0; i < sizeOfResume; i++) {

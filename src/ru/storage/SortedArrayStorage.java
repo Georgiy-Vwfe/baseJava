@@ -1,24 +1,15 @@
 package ru.storage;
 
 import ru.model.Resume;
+import static java.util.Arrays.binarySearch;
 
-import java.util.Arrays;
-
-import static java.util.Arrays.copyOfRange;
-import static java.util.Arrays.fill;
-
-public class SortedArrayStorage extends AbstractArrayStorage{
+public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected int getIndex(String uuid) {
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);
-        return Arrays.binarySearch(storage, 0,sizeOfResume, searchKey);
-    }
-
-    @Override
-    public void clear() {
-
+        return binarySearch(storage, 0, sizeOfResume, searchKey);
     }
 
     @Override
@@ -34,10 +25,5 @@ public class SortedArrayStorage extends AbstractArrayStorage{
     @Override
     public void delete(String uuid) {
 
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return new Resume[0];
     }
 }

@@ -5,7 +5,7 @@ import ru.model.Resume;
 import static java.util.Arrays.copyOfRange;
 import static java.util.Arrays.fill;
 
-public abstract class AbstractArrayStorage implements Storage{
+public abstract class AbstractArrayStorage implements Storage {
 
     protected static final int STORAGE_LIMIT = 100_000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -22,8 +22,17 @@ public abstract class AbstractArrayStorage implements Storage{
         }
     }
 
+    public void clear() {
+        fill(storage, 0, sizeOfResume, null);
+        sizeOfResume = 0;
+    }
+
     public int size() {
         return sizeOfResume;
+    }
+
+    public Resume[] getAll() {
+        return copyOfRange(storage, 0, sizeOfResume);
     }
 
     protected abstract int getIndex(String uuid);
