@@ -6,8 +6,10 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void save(Resume resume) {
-        super.save(resume);
-        if (sizeOfResume >= STORAGE_LIMIT) {
+        int i = getIndex(resume.getUuid());
+        if (i > -1) {
+            System.out.println("Резюме " + resume.getUuid() + " уже введено");
+        } else if (sizeOfResume >= STORAGE_LIMIT) {
             System.out.println("Массив полон");
         } else {
             storage[sizeOfResume] = resume;
@@ -17,8 +19,8 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void delete(String uuid) {
-        super.delete(uuid);
-        {
+        int i = checkError(uuid);
+        if (i >= 0) {
             storage[getIndex(uuid)] = storage[sizeOfResume - 1];
             storage[sizeOfResume - 1] = null;
             sizeOfResume--;

@@ -14,6 +14,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         return binarySearch(storage, 0, sizeOfResume, searchKey);
     }
 
+    //    storage[i].getUuid().compareTo(resume.getUuid()) == 0
     public void save(Resume resume) {
         int i = getIndex(resume.getUuid());
         if (i > -1) {
