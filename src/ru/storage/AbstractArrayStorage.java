@@ -7,13 +7,27 @@ import static java.util.Arrays.fill;
 
 public abstract class AbstractArrayStorage implements Storage {
 
-    protected static final int STORAGE_LIMIT = 100_000;
+    protected static final int STORAGE_LIMIT = 10_000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int sizeOfResume = 0;
 
+    public void save(Resume resume) {
+        int i = getIndex(resume.getUuid());
+        if (i > -1) {
+            System.out.println("Резюме " + resume.getUuid() + " уже введено");
+        }
+    }
+
+    public void delete(String uuid) {
+        if (getIndex(uuid) < 0) {
+            System.out.println("Резюме " + uuid + " не существует");
+            return;
+        }
+    }
+
     public void update(Resume resume) {
         int i = getIndex(resume.getUuid());
-        if (i == -1) {
+        if (i < 0) {
             System.out.println("Резюме " + resume.getUuid() + " не существует");
         } else {
             storage[i] = resume;
@@ -22,7 +36,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public Resume get(String uuid) {
         int i = getIndex(uuid);
-        if (i == -1) {
+        if (i < 0) {
             System.out.println("Резюме " + uuid + " не существует");
             return null;
         } else {

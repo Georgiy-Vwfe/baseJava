@@ -2,27 +2,27 @@ package ru.storage;
 
 import ru.model.Resume;
 
-public class ArrayStorage extends AbstractArrayStorage{
+public class ArrayStorage extends AbstractArrayStorage {
+
+    @Override
     public void save(Resume resume) {
-        if (getIndex(resume.getUuid()) != -1) {
-            System.out.println("Резюме " + resume.getUuid() + " уже введено");
-        } else if (sizeOfResume >= STORAGE_LIMIT) {
+        super.save(resume);
+        if (sizeOfResume >= STORAGE_LIMIT) {
             System.out.println("Массив полон");
         } else {
             storage[sizeOfResume] = resume;
             sizeOfResume++;
         }
     }
+
+    @Override
     public void delete(String uuid) {
-        int i = getIndex(uuid);
-        if (i == -1) {
-            System.out.println("Резюме " + uuid + " не существует");
-        } else {
-            storage[i] = storage[sizeOfResume - 1];
+        super.delete(uuid);
+        {
+            storage[getIndex(uuid)] = storage[sizeOfResume - 1];
             storage[sizeOfResume - 1] = null;
             sizeOfResume--;
         }
-
     }
 
     /**
