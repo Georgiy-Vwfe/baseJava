@@ -19,9 +19,13 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
     protected void doDelete(int index) {
         storage[index] = null;
-        Resume tempStorage[] = Arrays.copyOfRange(storage, 0, sizeOfResume + 1);
-        arraycopy(tempStorage, index, tempStorage, index, sizeOfResume - 1);
-        storage = Arrays.copyOfRange(tempStorage,0,sizeOfResume);
+        if (STORAGE_LIMIT == sizeOfResume){
+            Resume tempStorage[] = Arrays.copyOfRange(storage, 0, sizeOfResume + 1);
+            arraycopy(tempStorage, index, tempStorage, index, sizeOfResume - 1);
+            storage = Arrays.copyOfRange(tempStorage,0,sizeOfResume);
+        } else {
+            arraycopy(storage, index, storage, index, sizeOfResume - 1);
+        }
     }
 
     @Override
