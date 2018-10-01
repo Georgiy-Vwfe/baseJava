@@ -5,32 +5,17 @@ import ru.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    public void save(Resume resume) {
-        int i = getIndex(resume.getUuid());
-        if (i > -1) {
-            System.out.println("Резюме " + resume.getUuid() + " уже введено");
-        } else if (sizeOfResume >= STORAGE_LIMIT) {
-            System.out.println("Массив полон");
-        } else {
-            storage[sizeOfResume] = resume;
-            sizeOfResume++;
-        }
+    protected void doSave(Resume resume, int index) {
+        storage[sizeOfResume] = resume;
     }
 
     @Override
-    public void delete(String uuid) {
-        int i = checkError(uuid);
-        if (i >= 0) {
-            storage[getIndex(uuid)] = storage[sizeOfResume - 1];
-            storage[sizeOfResume - 1] = null;
-            sizeOfResume--;
-        }
+    protected void doDelete(String uuid, int index) {
+        storage[index] = storage[sizeOfResume - 1];
+        storage[sizeOfResume - 1] = null;
     }
 
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-
+    @Override
     protected int getIndex(String uuid) {
         for (int i = 0; i < sizeOfResume; i++) {
             if (storage[i].getUuid().equals(uuid)) {
