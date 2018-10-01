@@ -52,10 +52,10 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(uuid);
         if (index < 0) {
             System.out.println("Резюме " + uuid + " не существует");
+            return null;
         } else {
             return storage[index];
         }
-        return null;
     }
 
     public void clear() {
