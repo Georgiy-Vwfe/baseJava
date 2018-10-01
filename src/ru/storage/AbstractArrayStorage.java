@@ -13,7 +13,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract void doSave(Resume resume, int index);
 
-    protected abstract void doDelete(String uuid, int index);
+    protected abstract void doDelete(int index);
 
     protected abstract int getIndex(String uuid);
 
@@ -34,7 +34,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index < 0) {
             System.out.println("Резюме " + uuid + " не существует");
         } else {
-            doDelete(uuid, index);
+            doDelete(index);
             sizeOfResume--;
         }
     }

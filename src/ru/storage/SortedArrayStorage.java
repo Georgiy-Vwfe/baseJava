@@ -10,17 +10,22 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
     protected void doSave(Resume resume, int index) {
         index = (index * (-1) - 1);
-        if (storage[index].compareTo(resume) > 0) {
-            arraycopy(storage, index, storage, index + 1, sizeOfResume + 1 - index);
-            storage[index] = resume;
-        } else {
-            storage[index] = resume;
-        }
+//        for (int i = sizeOfResume; i >= index; i--) {
+//            storage[i + 1] = storage[i];
+//            storage[i] = null;
+//        }
+        arraycopy(storage, index, storage, index + 1, sizeOfResume - index);
+        storage[index] = resume;
     }
 
     @Override
-    protected void doDelete(String uuid, int index) {
+    protected void doDelete(int index) {
         storage[index] = null;
+//        for (int i = index; i <= sizeOfResume; i++) {
+//            storage[i] = storage[i + 1];
+//            storage[i + 1] = null;
+//        }
+        arraycopy(storage, index + 1, storage, index, sizeOfResume - 1);
     }
 
     @Override
