@@ -3,6 +3,7 @@ package ru.storage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import ru.exception.ExistStorageException;
 import ru.exception.NotExistStorageException;
 import ru.exception.StorageException;
 import ru.model.Resume;
@@ -28,7 +29,7 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         storage.clear();
         storage.save(RESUME_1);
         storage.save(RESUME_2);
@@ -38,27 +39,39 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void save() {
         storage.save(RESUME_4);
-        Assert.assertEquals(4,storage.size());
+        Assert.assertEquals(4, storage.size());
         Assert.assertEquals(RESUME_4, storage.get(RESUME_4.getUuid()));
     }
 
+    @Test(expected = ExistStorageException.class)
+    public void saveExist() {
+        storage.save(RESUME_1);
+        Assert.assertEquals(4, storage.size());
+    }
+
     @Test(expected = StorageException.class)
-    public void saveOverflow() throws Exception {
+    public void saveOverflow() {
         try {
             for (int i = 3; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
                 storage.save(new Resume());
             }
         } catch (StorageException e) {
-            Assert.fail();
+            System.out.println("Массив переполнен");
         }
         storage.save(new Resume());
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void delete() throws Exception {
+    public void delete() {
         storage.delete(UUID_1);
         Assert.assertEquals(2, storage.size());
         storage.get(UUID_1);
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void deleteNotExist() {
+        storage.delete(UUID_4);
+        Assert.assertEquals(4, storage.size());
     }
 
     @Test
@@ -68,13 +81,19 @@ public abstract class AbstractArrayStorageTest {
         Assert.assertSame(resume, storage.get(UUID_1));
     }
 
+    @Test(expected = NotExistStorageException.class)
+    public void updateNotExist() {
+        storage.update(RESUME_4);
+    }
+
     @Test
     public void get() {
+        storage.get(UUID_1);
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void getNotExist() throws Exception {
-        storage.get("dummy");
+    public void getNotExist() {
+        storage.get(UUID_4);
     }
 
     @Test
@@ -92,8 +111,6 @@ public abstract class AbstractArrayStorageTest {
     public void getAll() {
         Resume[] array = storage.getAll();
         Assert.assertEquals(3, array.length);
-        Assert.assertEquals(RESUME_1, array[0]);
-        Assert.assertEquals(RESUME_2, array[1]);
-        Assert.assertEquals(RESUME_3, array[2]);
+        Assert.assertArrayEquals(array, storage.getAll());
     }
 }
