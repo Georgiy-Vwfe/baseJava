@@ -46,17 +46,16 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = ExistStorageException.class)
     public void saveExist() {
         storage.save(RESUME_1);
-        Assert.assertEquals(4, storage.size());
     }
 
     @Test(expected = StorageException.class)
     public void saveOverflow() {
         try {
-            for (int i = 3; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
+            for (int i = 3; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
                 storage.save(new Resume());
             }
         } catch (StorageException e) {
-            System.out.println("Массив переполнен");
+            Assert.fail("Ошибка");
         }
         storage.save(new Resume());
     }
@@ -71,7 +70,6 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void deleteNotExist() {
         storage.delete(UUID_4);
-        Assert.assertEquals(4, storage.size());
     }
 
     @Test
@@ -89,6 +87,7 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void get() {
         storage.get(UUID_1);
+        Assert.assertEquals(RESUME_1.getUuid(),UUID_1);
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -109,7 +108,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void getAll() {
-        Resume[] array = storage.getAll();
+        Resume[] array = new Resume[]{RESUME_1,RESUME_2,RESUME_3};
         Assert.assertEquals(3, array.length);
         Assert.assertArrayEquals(array, storage.getAll());
     }
