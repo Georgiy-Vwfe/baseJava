@@ -8,7 +8,7 @@ import ru.model.Resume;
 import static java.util.Arrays.copyOfRange;
 import static java.util.Arrays.fill;
 
-public abstract class AbstractArrayStorage implements Storage {
+public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected static final int STORAGE_LIMIT = 10_000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
