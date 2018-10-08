@@ -8,8 +8,6 @@ import ru.exception.NotExistStorageException;
 import ru.exception.StorageException;
 import ru.model.Resume;
 
-import static org.junit.Assert.*;
-
 public abstract class AbstractArrayStorageTest {
     private Storage storage;
     private static final String UUID_1 = "0";
@@ -55,7 +53,7 @@ public abstract class AbstractArrayStorageTest {
                 storage.save(new Resume());
             }
         } catch (StorageException e) {
-            Assert.fail("Ошибка");
+            Assert.fail("Ошибка во время заполнения массива");
         }
         storage.save(new Resume());
     }
