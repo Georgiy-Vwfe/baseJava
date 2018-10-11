@@ -5,7 +5,7 @@ import ru.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected void doSave(Resume resume, int index) {
+    protected void doSave(int index, Resume resume) {
         storage[sizeOfResume] = resume;
     }
 
@@ -15,7 +15,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected int getIndex(String uuid) {
+    protected int getIndex(String uuid, Resume resume) {
         for (int i = 0; i < sizeOfResume; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;

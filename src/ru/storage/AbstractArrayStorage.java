@@ -1,7 +1,5 @@
 package ru.storage;
 
-import ru.exception.ExistStorageException;
-import ru.exception.NotExistStorageException;
 import ru.exception.StorageException;
 import ru.model.Resume;
 
@@ -10,28 +8,26 @@ import static java.util.Arrays.fill;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
-
     protected static final int STORAGE_LIMIT = 10_000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
 
-    public void delete(String uuid) {
-        int index = getIndex(uuid, new Resume());
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            doDelete(index);
-            sizeOfResume--;
-            storage[sizeOfResume] = null;
-        }
+    protected abstract void doDelete(int index);
+
+    @Override
+    public void clear() {
+        fill(storage, 0, sizeOfResume, null);
+        sizeOfResume = 0;
     }
 
-    public void update(Resume resume) {
-        int index = getIndex(resume.getUuid(), new Resume());
-        if (index < 0) {
-            throw new NotExistStorageException(resume.getUuid());
-        } else {
-            storage[index] = resume;
-        }
+    @Override
+    protected void doDelete(int index, String uuid) {
+        doDelete(index);
+        storage[sizeOfResume + 1] = null;
+    }
+
+    @Override
+    protected void doUpdate(int index, Resume resume) {
+        storage[index] = resume;
     }
 
     @Override
@@ -41,20 +37,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-    public Resume get(String uuid) {
-        int index = getIndex(uuid, new Resume());
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            return storage[index];
-        }
+    @Override
+    protected Resume doGet(int index, String uuid) {
+        return storage[index];
     }
 
-    public void clear() {
-        fill(storage, 0, sizeOfResume, null);
-        sizeOfResume = 0;
-    }
-
+    @Override
     public Resume[] getAll() {
         return copyOfRange(storage, 0, sizeOfResume);
     }
