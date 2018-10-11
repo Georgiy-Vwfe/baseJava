@@ -1,16 +1,20 @@
 package ru.storage;
 
+import ru.exception.ExistStorageException;
 import ru.exception.NotExistStorageException;
 import ru.model.Resume;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    protected Collection<Resume> resumeArrayList = new ArrayList<>();
+    protected List<Resume> resumeArrayList = new ArrayList<>();
+
     @Override
     public void clear() {
         resumeArrayList.clear();
+
     }
 
     @Override
@@ -20,13 +24,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            return null;
-        }
-
+        return null;
     }
 
     @Override
@@ -55,7 +53,20 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected int getIndex(String uuid) {
-        int index;
+    protected void checkForExist(Resume resume) {
+        int index = resumeArrayList.indexOf(resume);
+        if (index >= 0) {
+            throw new ExistStorageException(resume.getUuid());
+        }
+    }
+
+    @Override
+    protected void checkForStorageLimit(Resume resume) {
+
+    }
+
+    @Override
+    protected int getIndex(String uuid, Resume resume) {
+        return resumeArrayList.indexOf(resume);
     }
 }

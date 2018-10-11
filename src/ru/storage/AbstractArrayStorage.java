@@ -1,5 +1,6 @@
 package ru.storage;
 
+import ru.exception.ExistStorageException;
 import ru.exception.NotExistStorageException;
 import ru.exception.StorageException;
 import ru.model.Resume;
@@ -9,11 +10,12 @@ import static java.util.Arrays.fill;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
+
     protected static final int STORAGE_LIMIT = 10_000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
 
     public void delete(String uuid) {
-        int index = getIndex(uuid);
+        int index = getIndex(uuid, new Resume());
         if (index < 0) {
             throw new NotExistStorageException(uuid);
         } else {
@@ -24,7 +26,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
+        int index = getIndex(resume.getUuid(), new Resume());
         if (index < 0) {
             throw new NotExistStorageException(resume.getUuid());
         } else {
@@ -40,7 +42,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     public Resume get(String uuid) {
-        int index = getIndex(uuid);
+        int index = getIndex(uuid, new Resume());
         if (index < 0) {
             throw new NotExistStorageException(uuid);
         } else {
@@ -51,10 +53,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     public void clear() {
         fill(storage, 0, sizeOfResume, null);
         sizeOfResume = 0;
-    }
-
-    public int size() {
-        return sizeOfResume;
     }
 
     public Resume[] getAll() {

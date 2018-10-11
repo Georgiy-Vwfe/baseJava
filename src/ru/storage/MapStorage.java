@@ -6,14 +6,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
-    Map<String, Resume> mapStorage = new HashMap<>();
+    Map<String, Resume> resumeHashMap = new HashMap<>();
     @Override
     public void clear() {
-        mapStorage.clear();
+        resumeHashMap.clear();
     }
 
     @Override
     public void save(Resume resume) {
+
+    }
+
+    @Override
+    protected void checkForStorageLimit(Resume resume) {
 
     }
 
@@ -44,7 +49,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void doSave(Resume resume, int index) {
-
+        resumeHashMap.put(resume.getUuid(),resume);
     }
 
     @Override
@@ -53,7 +58,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected int getIndex(String uuid) {
+    protected int getIndex(String uuid, Resume resume) {
         return 0;
     }
 }
