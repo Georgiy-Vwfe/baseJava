@@ -6,45 +6,40 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
-    protected Map<String, Resume> resumeHashMap = new HashMap<>();
+    private Map<String, Resume> resumeMap = new HashMap<>();
 
     @Override
     public void clear() {
-        resumeHashMap.clear();
+        resumeMap.clear();
     }
 
     @Override
-    protected void doSave(int index, Resume resume) {
-        resumeHashMap.put(resume.getUuid(), resume);
+    protected void saveEntity(int sequence, Resume resume) {
+        resumeMap.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected void doDelete(int index, String uuid) {
-        resumeHashMap.remove(uuid);
+    protected void deleteEntity(int sequence, String uuid) {
+        resumeMap.remove(uuid);
     }
 
     @Override
-    protected void doUpdate(int index, Resume resume) {
-        resumeHashMap.replace(resume.getUuid(),resume);
+    protected void doUpdate(int sequence, Resume resume) {
+        resumeMap.replace(resume.getUuid(), resume);
     }
 
     @Override
-    protected Resume doGet(int index, String uuid) {
-        return resumeHashMap.get(uuid);
-    }
-
-    @Override
-    protected void checkForStorageLimit(Resume resume) {
-
-    }
-
-    @Override
-    protected int getIndex(String uuid, Resume resume) {
-        return 0;
+    protected Resume doGet(int sequence, String uuid) {
+        return resumeMap.get(uuid);
     }
 
     @Override
     public Resume[] getAll() {
         return new Resume[0];
+    }
+
+    @Override
+    public int size() {
+        return resumeMap.size();
     }
 }

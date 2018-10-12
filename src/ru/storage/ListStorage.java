@@ -6,44 +6,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    protected List<Resume> resumeArrayList = new ArrayList<>();
+    private List<Resume> resumeList = new ArrayList<>();
 
     @Override
     public void clear() {
-        resumeArrayList.clear();
+        resumeList.clear();
     }
 
     @Override
-    protected void doSave(int index, Resume resume) {
-        resumeArrayList.add(resume);
+    protected int prepareSave(Resume resume) {
+        return resumeList.indexOf(resume);
     }
 
     @Override
-    protected void doDelete(int index, String uuid) {
-        resumeArrayList.remove(index);
+    protected int prepareSave(String uuid) {
+        return resumeList.indexOf(uuid);
     }
 
     @Override
-    protected void doUpdate(int index, Resume resume) {
-        resumeArrayList.set(index, resume);
+    protected void saveEntity(int sequence, Resume resume) {
+        resumeList.add(resume);
     }
 
     @Override
-    protected Resume doGet(int index, String uuid) {
-        return resumeArrayList.get(index);
+    protected void deleteEntity(int sequence, String uuid) {
+        resumeList.remove(sequence);
     }
 
     @Override
-    protected void checkForStorageLimit(Resume resume) {
+    protected void doUpdate(int sequence, Resume resume) {
+        resumeList.set(sequence, resume);
     }
 
     @Override
-    protected int getIndex(String uuid, Resume resume) {
-        return resumeArrayList.indexOf(resume);
+    protected Resume doGet(int sequence, String uuid) {
+        return resumeList.get(sequence);
     }
 
     @Override
     public Resume[] getAll() {
-        return resumeArrayList.toArray(new Resume[resumeArrayList.size()]);
+        return resumeList.toArray(new Resume[resumeList.size()]);
+    }
+
+    @Override
+    public int size() {
+        return resumeList.size();
     }
 }

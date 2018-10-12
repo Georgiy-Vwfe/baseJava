@@ -10,6 +10,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected static final int STORAGE_LIMIT = 10_000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
+    protected int sizeOfResume = 0;
+
+    protected abstract void doSave(int sequence, Resume resume);
 
     protected abstract void doDelete(int index);
 
@@ -20,9 +23,16 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doDelete(int index, String uuid) {
+    protected void saveEntity(int index, Resume resume) {
+        doSave(index, resume);
+        sizeOfResume++;
+    }
+
+    @Override
+    protected void deleteEntity(int index, String uuid) {
         doDelete(index);
         storage[sizeOfResume + 1] = null;
+        sizeOfResume--;
     }
 
     @Override
@@ -45,5 +55,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     public Resume[] getAll() {
         return copyOfRange(storage, 0, sizeOfResume);
+    }
+
+    @Override
+    public int size() {
+        return sizeOfResume;
     }
 }
