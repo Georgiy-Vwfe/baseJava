@@ -14,33 +14,28 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected int prepareSave(Resume resume) {
-        return resumeList.indexOf(resume);
-    }
-
-    @Override
-    protected int prepareSave(String uuid) {
+    protected Object getIdentifier(String uuid) {
         return resumeList.indexOf(uuid);
     }
 
     @Override
-    protected void saveEntity(int sequence, Resume resume) {
+    protected void saveEntity(Object sequence, Resume resume) {
         resumeList.add(resume);
     }
 
     @Override
-    protected void deleteEntity(int sequence, String uuid) {
+    protected void deleteEntity(Integer sequence, String uuid) {
         resumeList.remove(sequence);
     }
 
     @Override
-    protected void doUpdate(int sequence, Resume resume) {
+    protected void doUpdate(Integer sequence, Resume resume) {
         resumeList.set(sequence, resume);
     }
 
     @Override
-    protected Resume doGet(int sequence, String uuid) {
-        return resumeList.get(sequence);
+    protected Resume doGet(Object sequence, String uuid) {
+        return resumeList.get((Integer) sequence);
     }
 
     @Override

@@ -8,13 +8,13 @@ import static java.util.Arrays.fill;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
-    protected static final int STORAGE_LIMIT = 10_000;
+    protected static final Integer STORAGE_LIMIT = 10_000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
-    protected int sizeOfResume = 0;
+    protected Integer sizeOfResume = 0;
 
-    protected abstract void doSave(int sequence, Resume resume);
+    protected abstract void doSave(Integer sequence, Resume resume);
 
-    protected abstract void doDelete(int index);
+    protected abstract void doDelete(Integer index);
 
     @Override
     public void clear() {
@@ -23,20 +23,20 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveEntity(int index, Resume resume) {
-        doSave(index, resume);
+    protected void saveEntity(Object index, Resume resume) {
+        doSave((Integer) index, resume);
         sizeOfResume++;
     }
 
     @Override
-    protected void deleteEntity(int index, String uuid) {
+    protected void deleteEntity(Integer index, String uuid) {
         doDelete(index);
         storage[sizeOfResume + 1] = null;
         sizeOfResume--;
     }
 
     @Override
-    protected void doUpdate(int index, Resume resume) {
+    protected void doUpdate(Integer index, Resume resume) {
         storage[index] = resume;
     }
 
@@ -48,8 +48,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume doGet(int index, String uuid) {
-        return storage[index];
+    protected Resume doGet(Object index, String uuid) {
+        return storage[(Integer) index];
     }
 
     @Override
