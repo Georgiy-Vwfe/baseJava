@@ -6,57 +6,73 @@ import ru.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
-    protected abstract Object prepareSave(Resume resume);
-
-    protected abstract void saveEntity(Object sequence, Resume resume);
+    protected abstract void saveEntity(Object identifier, Resume resume);
 
     protected abstract Object getIdentifier(String uuid);
 
-    protected abstract void deleteEntity(Integer sequence, String uuid);
+    protected abstract void deleteEntity(Object identifier, String uuid);
 
-    protected abstract void doUpdate(Integer sequence, Resume resume);
+    protected abstract void doUpdate(Object identifier, Resume resume);
 
-    protected abstract Resume doGet(Object sequence, String uuid);
+    protected abstract Resume doGet(Object identifier, String uuid);
 
     public abstract void clear();
 
 
     @Override
     public void save(Resume resume) {
-        Object identifier = prepareSave(resume);
+        Object identifier = getIdentifier(resume.getUuid());
+        checkForExist(resume.getUuid(), identifier);
+        checkForStorageLimit(resume.getUuid());
         saveEntity(identifier, resume);
     }
 
     @Override
     public void delete(String uuid) {
-        int sequence = (int) getIdentifier(uuid);
-        checkForNotExist(uuid, sequence);
-        deleteEntity(sequence, uuid);
+        Object identifier = getIdentifier(uuid);
+        checkForNotExist(uuid, identifier);
+        deleteEntity(identifier, uuid);
     }
 
     @Override
     public void update(Resume resume) {
-        int sequence = (int) getIdentifier(resume.getUuid());
-        checkForNotExist(resume.getUuid(), sequence);
-        doUpdate(sequence, resume);
+        Object identifier = getIdentifier(resume.getUuid());
+        checkForNotExist(resume.getUuid(), identifier);
+        doUpdate(identifier, resume);
     }
 
     @Override
     public Resume get(String uuid) {
-        Object sequence = getIdentifier(uuid);
-        checkForNotExist(uuid, sequence);
-        return doGet(sequence, uuid);
+        Object identifier = getIdentifier(uuid);
+        checkForNotExist(uuid, identifier);
+        return doGet(identifier, uuid);
     }
 
-    protected void checkForExist(Resume resume, Object sequence) {
-        if ((Integer) sequence >= 0) {
-            throw new ExistStorageException(resume.getUuid());
+    protected void checkForStorageLimit(String uuid) {
+
+    }
+
+    private void checkForExist(String uuid, Object identifier) {
+        try {
+            if ((Integer) identifier >= 0) {
+                throw new ExistStorageException(uuid);
+            }
+        } catch (Exception e) {
+            if (identifier.equals(uuid)) {
+                throw new ExistStorageException(uuid);
+            }
         }
     }
 
-    protected void checkForNotExist(String uuid, Object sequence) {
-        if ((Integer) sequence < 0) {
-            throw new NotExistStorageException(uuid);
+    private void checkForNotExist(String uuid, Object identifier) {
+        try {
+            if ((Integer) identifier < 0) {
+                throw new NotExistStorageException(uuid);
+            }
+        } catch (Exception e) {
+            if (!identifier.equals(uuid)) {
+                throw new ExistStorageException(uuid);
+            }
         }
     }
 }

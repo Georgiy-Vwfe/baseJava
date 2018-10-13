@@ -19,30 +19,23 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object prepareSave(Resume resume) {
-        Object identifier = getIdentifier(resume.getUuid());
-        checkForExist(resume, identifier);
-        return identifier;
-    }
-
-    @Override
-    protected void saveEntity(Object sequence, Resume resume) {
+    protected void saveEntity(Object identifier, Resume resume) {
         resumeList.add(resume);
     }
 
     @Override
-    protected void deleteEntity(Integer sequence, String uuid) {
-        resumeList.remove(sequence);
+    protected void deleteEntity(Object identifier, String uuid) {
+        resumeList.remove(identifier);
     }
 
     @Override
-    protected void doUpdate(Integer sequence, Resume resume) {
-        resumeList.set(sequence, resume);
+    protected void doUpdate(Object identifier, Resume resume) {
+        resumeList.set((Integer) identifier, resume);
     }
 
     @Override
-    protected Resume doGet(Object sequence, String uuid) {
-        return resumeList.get((Integer) sequence);
+    protected Resume doGet(Object identifier, String uuid) {
+        return resumeList.get((Integer) identifier);
     }
 
     @Override

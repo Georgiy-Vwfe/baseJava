@@ -19,27 +19,22 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object prepareSave(Resume resume) {
-        return getIdentifier(resume.getUuid());
+    protected void saveEntity(Object identifier, Resume resume) {
+        resumeMap.put((String) identifier, resume);
     }
 
     @Override
-    protected void saveEntity(Object sequence, Resume resume) {
-        resumeMap.put((String) sequence, resume);
-    }
-
-    @Override
-    protected void deleteEntity(Integer sequence, String uuid) {
+    protected void deleteEntity(Object identifier, String uuid) {
         resumeMap.remove(uuid);
     }
 
     @Override
-    protected void doUpdate(Integer sequence, Resume resume) {
+    protected void doUpdate(Object identifier, Resume resume) {
         resumeMap.replace(resume.getUuid(), resume);
     }
 
     @Override
-    protected Resume doGet(Object sequence, String uuid) {
+    protected Resume doGet(Object identifier, String uuid) {
         return resumeMap.get(uuid);
     }
 

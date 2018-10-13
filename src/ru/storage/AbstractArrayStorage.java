@@ -17,14 +17,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract void doDelete(Integer index);
 
     @Override
-    protected Object prepareSave(Resume resume) {
-        Object identifier = getIdentifier(resume.getUuid());
-        checkForExist(resume, identifier);
-        checkForStorageLimit(resume);
-        return identifier;
-    }
-
-    @Override
     public void clear() {
         fill(storage, 0, sizeOfResume, null);
         sizeOfResume = 0;
@@ -37,21 +29,15 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteEntity(Integer index, String uuid) {
-        doDelete(index);
+    protected void deleteEntity(Object index, String uuid) {
+        doDelete((Integer) index);
         storage[sizeOfResume + 1] = null;
         sizeOfResume--;
     }
 
     @Override
-    protected void doUpdate(Integer index, Resume resume) {
-        storage[index] = resume;
-    }
-
-    private void checkForStorageLimit(Resume resume) {
-        if (sizeOfResume >= STORAGE_LIMIT) {
-            throw new StorageException("Массив полон", resume.getUuid());
-        }
+    protected void doUpdate(Object index, Resume resume) {
+        storage[(Integer) index] = resume;
     }
 
     @Override
@@ -67,6 +53,13 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     public int size() {
         return sizeOfResume;
+    }
+
+    @Override
+    protected void checkForStorageLimit(String uuid) {
+        if (sizeOfResume >= STORAGE_LIMIT) {
+            throw new StorageException("Массив полон", uuid);
+        }
     }
 }
 
