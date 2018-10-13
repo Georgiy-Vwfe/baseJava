@@ -19,6 +19,11 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
+    protected Object prepareSave(Resume resume) {
+        return getIdentifier(resume.getUuid());
+    }
+
+    @Override
     protected void saveEntity(Object sequence, Resume resume) {
         resumeMap.put((String) sequence, resume);
     }
@@ -40,7 +45,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        return new Resume[0];
+        return resumeMap.values().toArray(new Resume[size()]);
     }
 
     @Override

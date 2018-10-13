@@ -19,6 +19,13 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
+    protected Object prepareSave(Resume resume) {
+        Object identifier = getIdentifier(resume.getUuid());
+        checkForExist(resume, identifier);
+        return identifier;
+    }
+
+    @Override
     protected void saveEntity(Object sequence, Resume resume) {
         resumeList.add(resume);
     }

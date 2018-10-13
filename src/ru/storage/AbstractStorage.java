@@ -6,6 +6,8 @@ import ru.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
+    protected abstract Object prepareSave(Resume resume);
+
     protected abstract void saveEntity(Object sequence, Resume resume);
 
     protected abstract Object getIdentifier(String uuid);
@@ -21,10 +23,8 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
-        Object sequence = getIdentifier(resume.getUuid());
-        checkForExist(resume, sequence);
-        checkForStorageLimit(resume);
-        saveEntity(sequence, resume);
+        Object identifier = prepareSave(resume);
+        saveEntity(identifier, resume);
     }
 
     @Override
@@ -48,16 +48,13 @@ public abstract class AbstractStorage implements Storage {
         return doGet(sequence, uuid);
     }
 
-    protected void checkForStorageLimit(Resume resume) {
-    }
-
-    private void checkForExist(Resume resume, Object sequence) {
+    protected void checkForExist(Resume resume, Object sequence) {
         if ((Integer) sequence >= 0) {
             throw new ExistStorageException(resume.getUuid());
         }
     }
 
-    private void checkForNotExist(String uuid, Object sequence) {
+    protected void checkForNotExist(String uuid, Object sequence) {
         if ((Integer) sequence < 0) {
             throw new NotExistStorageException(uuid);
         }
