@@ -1,7 +1,7 @@
 package ru.storage;
 
 public class MapStorageTest extends AbstractStorageTest {
-    public MapStorageTest(){
+    public MapStorageTest() {
         super(new MapStorage());
     }
 }

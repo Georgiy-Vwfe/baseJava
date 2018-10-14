@@ -1,7 +1,5 @@
 package ru.storage;
 
-import ru.exception.ExistStorageException;
-import ru.exception.NotExistStorageException;
 import ru.exception.StorageException;
 import ru.model.Resume;
 
