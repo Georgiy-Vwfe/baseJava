@@ -1,5 +1,7 @@
 package ru.storage;
 
+import ru.exception.ExistStorageException;
+import ru.exception.NotExistStorageException;
 import ru.model.Resume;
 
 import java.util.ArrayList;
@@ -46,5 +48,19 @@ public class ListStorage extends AbstractStorage {
     @Override
     public int size() {
         return resumeList.size();
+    }
+
+    @Override
+    protected void checkForExist(String uuid, Object identifier) {
+        if ((Integer) identifier >= 0) {
+            throw new ExistStorageException(uuid);
+        }
+    }
+
+    @Override
+    protected void checkForNotExist(String uuid, Object identifier) {
+        if ((Integer) identifier < 0) {
+            throw new NotExistStorageException(uuid);
+        }
     }
 }

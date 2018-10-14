@@ -1,7 +1,5 @@
 package ru.storage;
 
-import ru.exception.ExistStorageException;
-import ru.exception.NotExistStorageException;
 import ru.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
@@ -52,27 +50,7 @@ public abstract class AbstractStorage implements Storage {
 
     }
 
-    private void checkForExist(String uuid, Object identifier) {
-        try {
-            if ((Integer) identifier >= 0) {
-                throw new ExistStorageException(uuid);
-            }
-        } catch (Exception e) {
-            if (identifier.equals(uuid)) {
-                throw new ExistStorageException(uuid);
-            }
-        }
-    }
+    protected abstract void checkForExist(String uuid, Object identifier);
 
-    private void checkForNotExist(String uuid, Object identifier) {
-        try {
-            if ((Integer) identifier < 0) {
-                throw new NotExistStorageException(uuid);
-            }
-        } catch (Exception e) {
-            if (!identifier.equals(uuid)) {
-                throw new ExistStorageException(uuid);
-            }
-        }
-    }
+    protected abstract void checkForNotExist(String uuid, Object identifier);
 }
