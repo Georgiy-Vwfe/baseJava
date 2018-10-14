@@ -1,9 +1,7 @@
 package ru.storage;
 
-import ru.model.Resume;
-
-public class MapStorageTest {
+public class MapStorageTest extends AbstractStorageTest {
     public MapStorageTest(){
-//        super((Storage)new MapStorage());
+        super(new MapStorage());
     }
 }

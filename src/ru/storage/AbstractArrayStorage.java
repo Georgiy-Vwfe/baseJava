@@ -26,6 +26,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected void saveEntity(Object index, Resume resume) {
+        checkForStorageLimit(resume.getUuid());
         doSave((Integer) index, resume);
         sizeOfResume++;
     }
@@ -33,8 +34,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     protected void deleteEntity(Object index, String uuid) {
         doDelete((Integer) index);
-        storage[sizeOfResume + 1] = null;
         sizeOfResume--;
+        storage[sizeOfResume] = null;
     }
 
     @Override
@@ -57,24 +58,14 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return sizeOfResume;
     }
 
-    @Override
-    protected void checkForStorageLimit(String uuid) {
+    private void checkForStorageLimit(String uuid) {
         if (sizeOfResume >= STORAGE_LIMIT) {
             throw new StorageException("Массив полон", uuid);
         }
     }
 
     @Override
-    protected void checkForExist(String uuid, Object identifier) {
-        if ((Integer) identifier >= 0) {
-            throw new ExistStorageException(uuid);
-        }
-    }
-
-    @Override
-    protected void checkForNotExist(String uuid, Object identifier) {
-        if ((Integer) identifier < 0) {
-            throw new NotExistStorageException(uuid);
-        }
+    protected Boolean doExist(String uuid, Object identifier) {
+        return (Integer) identifier > -1;
     }
 }

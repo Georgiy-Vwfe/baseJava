@@ -2,8 +2,6 @@ package ru.storage;
 
 import ru.model.Resume;
 
-import java.util.Arrays;
-
 import static java.lang.System.arraycopy;
 import static java.util.Arrays.binarySearch;
 

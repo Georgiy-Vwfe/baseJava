@@ -1,7 +1,5 @@
 package ru.storage;
 
-import ru.exception.ExistStorageException;
-import ru.exception.NotExistStorageException;
 import ru.model.Resume;
 
 import java.util.HashMap;
@@ -17,12 +15,16 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Object getIdentifier(String uuid) {
-        return resumeMap.get(uuid).getUuid();
+        if (resumeMap.get(uuid) == null) {
+            return null;
+        } else {
+            return resumeMap.get(uuid).getUuid();
+        }
     }
 
     @Override
     protected void saveEntity(Object identifier, Resume resume) {
-        resumeMap.put((String) identifier, resume);
+        resumeMap.put(resume.getUuid(), resume);
     }
 
     @Override
@@ -51,16 +53,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void checkForExist(String uuid, Object identifier) {
-        if (identifier.equals(uuid)) {
-            throw new ExistStorageException(uuid);
-        }
-    }
-
-    @Override
-    protected void checkForNotExist(String uuid, Object identifier) {
-        if (!identifier.equals(uuid)) {
-            throw new ExistStorageException(uuid);
-        }
+    protected Boolean doExist(String uuid, Object identifier) {
+        return identifier != null;
     }
 }

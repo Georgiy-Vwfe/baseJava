@@ -1,5 +1,7 @@
 package ru.storage;
 
+import ru.exception.ExistStorageException;
+import ru.exception.NotExistStorageException;
 import ru.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
@@ -14,14 +16,13 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Resume doGet(Object identifier, String uuid);
 
-    public abstract void clear();
+    protected abstract Boolean doExist(String uuid, Object identifier);
 
 
     @Override
     public void save(Resume resume) {
         Object identifier = getIdentifier(resume.getUuid());
         checkForExist(resume.getUuid(), identifier);
-        checkForStorageLimit(resume.getUuid());
         saveEntity(identifier, resume);
     }
 
@@ -46,11 +47,15 @@ public abstract class AbstractStorage implements Storage {
         return doGet(identifier, uuid);
     }
 
-    protected void checkForStorageLimit(String uuid) {
-
+    private void checkForExist(String uuid, Object identifier) {
+        if (doExist(uuid, identifier)) {
+            throw new ExistStorageException(uuid);
+        }
     }
 
-    protected abstract void checkForExist(String uuid, Object identifier);
-
-    protected abstract void checkForNotExist(String uuid, Object identifier);
+    private void checkForNotExist(String uuid, Object identifier) {
+        if (!doExist(uuid, identifier)) {
+            throw new NotExistStorageException(uuid);
+        }
+    }
 }
