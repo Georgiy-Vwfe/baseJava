@@ -10,13 +10,13 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Object getIdentifier(String uuid);
 
-    protected abstract void deleteEntity(Object identifier, String uuid);
+    protected abstract void deleteEntity(Object identifier);
 
     protected abstract void doUpdate(Object identifier, Resume resume);
 
-    protected abstract Resume doGet(Object identifier, String uuid);
+    protected abstract Resume doGet(Object identifier);
 
-    protected abstract Boolean doExist(String uuid, Object identifier);
+    protected abstract Boolean isExist(Object identifier);
 
 
     @Override
@@ -30,7 +30,7 @@ public abstract class AbstractStorage implements Storage {
     public void delete(String uuid) {
         Object identifier = getIdentifier(uuid);
         checkForNotExist(uuid, identifier);
-        deleteEntity(identifier, uuid);
+        deleteEntity(identifier);
     }
 
     @Override
@@ -44,17 +44,17 @@ public abstract class AbstractStorage implements Storage {
     public Resume get(String uuid) {
         Object identifier = getIdentifier(uuid);
         checkForNotExist(uuid, identifier);
-        return doGet(identifier, uuid);
+        return doGet(identifier);
     }
 
     private void checkForExist(String uuid, Object identifier) {
-        if (doExist(uuid, identifier)) {
+        if (isExist(identifier)) {
             throw new ExistStorageException(uuid);
         }
     }
 
     private void checkForNotExist(String uuid, Object identifier) {
-        if (!doExist(uuid, identifier)) {
+        if (!isExist(identifier)) {
             throw new NotExistStorageException(uuid);
         }
     }

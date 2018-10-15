@@ -18,7 +18,7 @@ public class MapStorage extends AbstractStorage {
         if (resumeMap.get(uuid) == null) {
             return null;
         } else {
-            return resumeMap.get(uuid).getUuid();
+            return uuid;
         }
     }
 
@@ -28,18 +28,18 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteEntity(Object identifier, String uuid) {
-        resumeMap.remove(uuid);
+    protected void deleteEntity(Object identifier) {
+        resumeMap.remove(identifier);
     }
 
     @Override
     protected void doUpdate(Object identifier, Resume resume) {
-        resumeMap.replace(resume.getUuid(), resume);
+        resumeMap.replace((String) identifier, resume);
     }
 
     @Override
-    protected Resume doGet(Object identifier, String uuid) {
-        return resumeMap.get(uuid);
+    protected Resume doGet(Object identifier) {
+        return resumeMap.get(identifier);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Boolean doExist(String uuid, Object identifier) {
+    protected Boolean isExist(Object identifier) {
         return identifier != null;
     }
 }

@@ -24,13 +24,13 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveEntity(Object identifier, Resume resume) {
+    protected void saveEntity(Object index, Resume resume) {
         resumeList.add(resume);
     }
 
     @Override
-    protected void deleteEntity(Object identifier, String uuid) {
-        resumeList.remove((int)identifier);
+    protected void deleteEntity(Object index) {
+        resumeList.remove((int)index);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume doGet(Object identifier, String uuid) {
+    protected Resume doGet(Object identifier) {
         return resumeList.get((Integer) identifier);
     }
 
@@ -54,7 +54,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Boolean doExist(String uuid, Object identifier) {
+    protected Boolean isExist(Object identifier) {
         return (Integer) identifier > -1;
     }
 }

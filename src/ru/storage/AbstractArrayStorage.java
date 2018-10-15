@@ -30,7 +30,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteEntity(Object index, String uuid) {
+    protected void deleteEntity(Object index) {
         doDelete((Integer) index);
         sizeOfResume--;
         storage[sizeOfResume] = null;
@@ -42,7 +42,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume doGet(Object index, String uuid) {
+    protected Resume doGet(Object index) {
         return storage[(Integer) index];
     }
 
@@ -63,7 +63,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Boolean doExist(String uuid, Object identifier) {
+    protected Boolean isExist(Object identifier) {
         return (Integer) identifier > -1;
     }
 }
