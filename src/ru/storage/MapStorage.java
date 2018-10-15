@@ -29,7 +29,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void deleteEntity(Object identifier) {
-        resumeMap.remove(identifier);
+        resumeMap.remove((String) identifier);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Resume doGet(Object identifier) {
-        return resumeMap.get(identifier);
+        return resumeMap.get((String) identifier);
     }
 
     @Override

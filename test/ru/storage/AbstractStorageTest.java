@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.exception.ExistStorageException;
 import ru.exception.NotExistStorageException;
-import ru.exception.StorageException;
 import ru.model.Resume;
 
 public abstract class AbstractStorageTest {
