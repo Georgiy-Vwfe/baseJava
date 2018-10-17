@@ -27,11 +27,11 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
     protected Object getIdentifier(String uuid) {
         Resume searchKey = new Resume(uuid);
-        return binarySearch(storage, 0, sizeOfResume, searchKey);
+        return binarySearch(storage, 0, sizeOfResume, searchKey, RESUME_COMPARATOR);
     }
 
     @Override
     public List<Resume> getAllSorted() {
-        return asList(copyOfRange(storage,0,sizeOfResume));
+        return asList(copyOfRange(storage, 0, sizeOfResume));
     }
 }
