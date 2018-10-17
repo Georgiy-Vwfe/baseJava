@@ -6,25 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapStorage extends AbstractStorage {
-    private Map<String, Resume> resumeMap = new HashMap<>();
+public abstract class MapStorage extends AbstractStorage {
+    protected Map<String, Resume> resumeMap = new HashMap<>();
+
     @Override
     public void clear() {
         resumeMap.clear();
-    }
-
-    @Override
-    protected Object getIdentifier(String uuid) {
-        if (resumeMap.get(uuid) == null) {
-            return null;
-        } else {
-            return uuid;
-        }
-    }
-
-    @Override
-    protected void saveEntity(Object identifier, Resume resume) {
-        resumeMap.put(resume.getUuid(), resume);
     }
 
     @Override
