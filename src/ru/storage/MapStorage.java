@@ -3,11 +3,11 @@ package ru.storage;
 import ru.model.Resume;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
     private Map<String, Resume> resumeMap = new HashMap<>();
-
     @Override
     public void clear() {
         resumeMap.clear();
@@ -29,7 +29,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void deleteEntity(Object identifier) {
-        resumeMap.remove((String) identifier);
+        resumeMap.remove(identifier);
     }
 
     @Override
@@ -39,12 +39,12 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Resume doGet(Object identifier) {
-        return resumeMap.get((String) identifier);
+        return resumeMap.get(identifier);
     }
 
     @Override
-    public Resume[] getAll() {
-        return resumeMap.values().toArray(new Resume[size()]);
+    public List<Resume> getAllSorted() {
+        return (List<Resume>) resumeMap.values();
     }
 
     @Override

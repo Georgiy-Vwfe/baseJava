@@ -3,6 +3,8 @@ package ru.storage;
 import ru.exception.StorageException;
 import ru.model.Resume;
 
+import java.util.List;
+
 import static java.util.Arrays.copyOfRange;
 import static java.util.Arrays.fill;
 
@@ -44,11 +46,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     protected Resume doGet(Object index) {
         return storage[(Integer) index];
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return copyOfRange(storage, 0, sizeOfResume);
     }
 
     @Override
