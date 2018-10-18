@@ -5,10 +5,11 @@ import ru.exception.NotExistStorageException;
 import ru.model.Resume;
 
 import java.util.Comparator;
+import java.util.List;
 
 public abstract class AbstractStorage implements Storage {
 
-    protected static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getUuid);
+    protected static final Comparator<Resume> RESUME_COMPARATOR = (r1, r2) -> Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid).compare(r1, r2);
 
     protected abstract void saveEntity(Object identifier, Resume resume);
 
@@ -21,6 +22,8 @@ public abstract class AbstractStorage implements Storage {
     protected abstract Resume doGet(Object identifier);
 
     protected abstract Boolean isExist(Object identifier);
+
+    protected abstract List<Resume> getResumeList();
 
     @Override
     public void save(Resume resume) {
@@ -60,5 +63,12 @@ public abstract class AbstractStorage implements Storage {
         if (!isExist(identifier)) {
             throw new NotExistStorageException(uuid);
         }
+    }
+
+    @Override
+    public List<Resume> getAllSorted() {
+        List<Resume> resumeAsSortedList = getResumeList();
+        resumeAsSortedList.sort(RESUME_COMPARATOR);
+        return resumeAsSortedList;
     }
 }

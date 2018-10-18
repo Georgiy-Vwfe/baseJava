@@ -2,11 +2,6 @@ package ru.storage;
 
 import ru.model.Resume;
 
-import java.util.List;
-
-import static java.util.Arrays.asList;
-import static java.util.Arrays.copyOfRange;
-
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
@@ -27,12 +22,5 @@ public class ArrayStorage extends AbstractArrayStorage {
             }
         }
         return -1;
-    }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        List<Resume> resumesAsSortedList = asList(copyOfRange(storage, 0, sizeOfResume));
-        resumesAsSortedList.sort(RESUME_COMPARATOR);
-        return resumesAsSortedList;
     }
 }

@@ -4,17 +4,7 @@ import ru.model.Resume;
 
 import java.util.Comparator;
 
-public class FullNameMapStorage extends MapStorage {
-
-    private final Comparator<Resume> RESUME_COMPARATOR = (r1, r2) -> {
-        int compareResult = r1.getFullName().compareTo(r2.getFullName());
-        if (compareResult == 0) {
-            return r1.getUuid().compareTo(r2.getUuid());
-        } else {
-            return compareResult;
-        }
-    };
-
+public class FullNameMapStorage extends AbstractMapStorage {
 
     @Override
     protected Object getIdentifier(String uuid) {

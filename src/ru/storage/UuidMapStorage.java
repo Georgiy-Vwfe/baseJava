@@ -2,7 +2,7 @@ package ru.storage;
 
 import ru.model.Resume;
 
-public class UuidMapStorage extends MapStorage {
+public class UuidMapStorage extends AbstractMapStorage {
 
     @Override
     protected Object getIdentifier(String uuid) {

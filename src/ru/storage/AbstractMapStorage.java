@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class MapStorage extends AbstractStorage {
+public abstract class AbstractMapStorage extends AbstractStorage {
     protected Map<String, Resume> resumeMap = new HashMap<>();
 
     @Override
@@ -30,13 +30,6 @@ public abstract class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        List<Resume> resumeMapAsSortedList = (List<Resume>) resumeMap.values();
-        resumeMapAsSortedList.sort(RESUME_COMPARATOR);
-        return resumeMapAsSortedList;
-    }
-
-    @Override
     public int size() {
         return resumeMap.size();
     }
@@ -44,5 +37,10 @@ public abstract class MapStorage extends AbstractStorage {
     @Override
     protected Boolean isExist(Object identifier) {
         return identifier != null;
+    }
+
+    @Override
+    protected List<Resume> getResumeList() {
+        return (List<Resume>) resumeMap.values();
     }
 }

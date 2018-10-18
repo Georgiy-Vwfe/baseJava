@@ -2,13 +2,8 @@ package ru.storage;
 
 import ru.model.Resume;
 
-import java.util.List;
-
 import static java.lang.System.arraycopy;
-import static java.util.Arrays.asList;
 import static java.util.Arrays.binarySearch;
-import static java.util.Arrays.copyOfRange;
-
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
@@ -26,12 +21,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected Object getIdentifier(String uuid) {
-        Resume searchKey = new Resume(uuid);
-        return binarySearch(storage, 0, sizeOfResume, searchKey, RESUME_COMPARATOR);
-    }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        return asList(copyOfRange(storage, 0, sizeOfResume));
+        Resume searchKey = new Resume(uuid, null);
+        return binarySearch(storage, 0, sizeOfResume, searchKey);
     }
 }

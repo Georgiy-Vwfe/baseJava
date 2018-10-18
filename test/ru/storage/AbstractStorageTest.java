@@ -7,23 +7,20 @@ import ru.exception.ExistStorageException;
 import ru.exception.NotExistStorageException;
 import ru.model.Resume;
 
-import java.util.Arrays;
-import java.util.List;
-
 public abstract class AbstractStorageTest {
 
     protected Storage storage;
     private static final String UUID_1 = "0";
-    private static final Resume RESUME_1 = new Resume(UUID_1);
+    private static final Resume RESUME_1 = new Resume(UUID_1, null);
 
     private static final String UUID_2 = "1";
-    private static final Resume RESUME_2 = new Resume(UUID_2);
+    private static final Resume RESUME_2 = new Resume(UUID_2, null);
 
     private static final String UUID_3 = "2";
-    private static final Resume RESUME_3 = new Resume(UUID_3);
+    private static final Resume RESUME_3 = new Resume(UUID_3, null);
 
     private static final String UUID_4 = "3";
-    private static final Resume RESUME_4 = new Resume(UUID_4);
+    private static final Resume RESUME_4 = new Resume(UUID_4, null);
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -63,7 +60,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() {
-        Resume resume = new Resume(UUID_1);
+        Resume resume = new Resume(UUID_1, null);
         storage.update(resume);
         Assert.assertSame(resume, storage.get(UUID_1));
     }

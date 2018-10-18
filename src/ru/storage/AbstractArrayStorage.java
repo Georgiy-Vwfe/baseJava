@@ -5,8 +5,7 @@ import ru.model.Resume;
 
 import java.util.List;
 
-import static java.util.Arrays.copyOfRange;
-import static java.util.Arrays.fill;
+import static java.util.Arrays.*;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
@@ -62,5 +61,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     protected Boolean isExist(Object identifier) {
         return (Integer) identifier > -1;
+    }
+
+    @Override
+    protected List<Resume> getResumeList() {
+        return asList(copyOfRange(storage, 0, sizeOfResume));
     }
 }
