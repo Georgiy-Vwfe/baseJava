@@ -2,8 +2,6 @@ package ru.storage;
 
 import ru.model.Resume;
 
-import java.util.Comparator;
-
 public class ResumeMapStorage extends AbstractMapStorage {
 
     @Override
@@ -17,7 +15,8 @@ public class ResumeMapStorage extends AbstractMapStorage {
     }
 
     @Override
-    protected void saveEntity(Object identifier, Resume resume) {
-        resumeMap.put(resume.getUuid(), resume);
+    protected String putResumeUuid(Object identifier) {
+        Resume findEntity = (Resume)identifier;
+        return findEntity.getUuid();
     }
 }

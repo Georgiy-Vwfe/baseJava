@@ -11,16 +11,16 @@ public abstract class AbstractStorageTest {
 
     protected Storage storage;
     private static final String UUID_1 = "0";
-    private static final Resume RESUME_1 = new Resume(UUID_1, null);
+    private static final Resume RESUME_1 = new Resume(UUID_1, "Mark Gess");
 
     private static final String UUID_2 = "1";
-    private static final Resume RESUME_2 = new Resume(UUID_2, null);
+    private static final Resume RESUME_2 = new Resume(UUID_2, "Daniel Watson");
 
     private static final String UUID_3 = "2";
-    private static final Resume RESUME_3 = new Resume(UUID_3, null);
+    private static final Resume RESUME_3 = new Resume(UUID_3, "Henry Ford");
 
     private static final String UUID_4 = "3";
-    private static final Resume RESUME_4 = new Resume(UUID_4, null);
+    private static final Resume RESUME_4 = new Resume(UUID_4, "Frans Ferdinand");
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;

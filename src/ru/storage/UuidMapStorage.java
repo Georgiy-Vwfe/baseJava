@@ -1,7 +1,5 @@
 package ru.storage;
 
-import ru.model.Resume;
-
 public class UuidMapStorage extends AbstractMapStorage {
 
     @Override
@@ -14,7 +12,7 @@ public class UuidMapStorage extends AbstractMapStorage {
     }
 
     @Override
-    protected void saveEntity(Object identifier, Resume resume) {
-        resumeMap.put((String)identifier, resume);
+    protected String putResumeUuid(Object identifier) {
+        return (String)identifier;
     }
 }

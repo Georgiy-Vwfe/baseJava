@@ -9,24 +9,31 @@ import java.util.Map;
 public abstract class AbstractMapStorage extends AbstractStorage {
     protected Map<String, Resume> resumeMap = new HashMap<>();
 
+    protected abstract String putResumeUuid(Object identifier);
+
     @Override
     public void clear() {
         resumeMap.clear();
     }
 
     @Override
+    protected void saveEntity(Object identifier, Resume resume) {
+        resumeMap.put(resume.getUuid(), resume);
+    }
+
+    @Override
     protected void deleteEntity(Object identifier) {
-        resumeMap.remove(identifier);
+        resumeMap.remove(putResumeUuid(identifier));
     }
 
     @Override
     protected void doUpdate(Object identifier, Resume resume) {
-        resumeMap.replace((String) identifier, resume);
+        resumeMap.replace(putResumeUuid(identifier), resume);
     }
 
     @Override
     protected Resume doGet(Object identifier) {
-        return resumeMap.get(identifier);
+        return resumeMap.get(putResumeUuid(identifier));
     }
 
     @Override
