@@ -4,19 +4,20 @@ import ru.model.Resume;
 
 import java.util.Comparator;
 
-public class FullNameMapStorage extends AbstractMapStorage {
+public class ResumeMapStorage extends AbstractMapStorage {
 
     @Override
     protected Object getIdentifier(String uuid) {
-        if (resumeMap.get(uuid) == null) {
+        Resume resume = resumeMap.get(uuid);
+        if (resume == null) {
             return null;
         } else {
-            return uuid;
+            return resume;
         }
     }
 
     @Override
     protected void saveEntity(Object identifier, Resume resume) {
-        resumeMap.put(resume.getFullName(), resume);
+        resumeMap.put(resume.getUuid(), resume);
     }
 }

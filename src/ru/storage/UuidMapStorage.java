@@ -15,6 +15,6 @@ public class UuidMapStorage extends AbstractMapStorage {
 
     @Override
     protected void saveEntity(Object identifier, Resume resume) {
-        resumeMap.put(resume.getUuid(), resume);
+        resumeMap.put((String)identifier, resume);
     }
 }
