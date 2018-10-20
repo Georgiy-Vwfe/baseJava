@@ -28,28 +28,28 @@ public abstract class AbstractStorage implements Storage {
     @Override
     public void save(Resume resume) {
         Object identifier = getIdentifier(resume.getUuid());
-        checkForExist(resume.getUuid(), identifier);
+        checkForExist(resume.getUuid());
         saveEntity(identifier, resume);
     }
 
     @Override
     public void delete(String uuid) {
         Object identifier = getIdentifier(uuid);
-        checkForNotExist(uuid, identifier);
+        checkForNotExist(uuid);
         deleteEntity(identifier);
     }
 
     @Override
     public void update(Resume resume) {
         Object identifier = getIdentifier(resume.getUuid());
-        checkForNotExist(resume.getUuid(), identifier);
+        checkForNotExist(resume.getUuid());
         doUpdate(identifier, resume);
     }
 
     @Override
     public Resume get(String uuid) {
         Object identifier = getIdentifier(uuid);
-        checkForNotExist(uuid, identifier);
+        checkForNotExist(uuid);
         return doGet(identifier);
     }
 
@@ -60,13 +60,15 @@ public abstract class AbstractStorage implements Storage {
         return resumeAsSortedList;
     }
 
-    private void checkForExist(String uuid, Object identifier) {
+    private void checkForExist(String uuid) {
+        Object identifier = getIdentifier(uuid);
         if (isExist(identifier)) {
             throw new ExistStorageException(uuid);
         }
     }
 
-    private void checkForNotExist(String uuid, Object identifier) {
+    private void checkForNotExist(String uuid) {
+        Object identifier = getIdentifier(uuid);
         if (!isExist(identifier)) {
             throw new NotExistStorageException(uuid);
         }

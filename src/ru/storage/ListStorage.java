@@ -57,4 +57,5 @@ public class ListStorage extends AbstractStorage {
     protected List<Resume> getResumeList() {
         return new ArrayList<>(resumeList);
     }
+
 }
