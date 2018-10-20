@@ -53,6 +53,13 @@ public abstract class AbstractStorage implements Storage {
         return doGet(identifier);
     }
 
+    @Override
+    public List<Resume> getAllSorted() {
+        List<Resume> resumeAsSortedList = getResumeList();
+        resumeAsSortedList.sort(RESUME_COMPARATOR);
+        return resumeAsSortedList;
+    }
+
     private void checkForExist(String uuid, Object identifier) {
         if (isExist(identifier)) {
             throw new ExistStorageException(uuid);
@@ -63,12 +70,5 @@ public abstract class AbstractStorage implements Storage {
         if (!isExist(identifier)) {
             throw new NotExistStorageException(uuid);
         }
-    }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        List<Resume> resumeAsSortedList = getResumeList();
-        resumeAsSortedList.sort(RESUME_COMPARATOR);
-        return resumeAsSortedList;
     }
 }

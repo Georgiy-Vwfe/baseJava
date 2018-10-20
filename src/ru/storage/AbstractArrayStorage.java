@@ -13,7 +13,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected Integer sizeOfResume = 0;
 
-    protected abstract void doSave(Integer sequence, Resume resume);
+    protected abstract void doSave(Integer index, Resume resume);
 
     protected abstract void doDelete(Integer index);
 

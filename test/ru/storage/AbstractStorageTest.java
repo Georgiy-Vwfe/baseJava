@@ -7,6 +7,9 @@ import ru.exception.ExistStorageException;
 import ru.exception.NotExistStorageException;
 import ru.model.Resume;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class AbstractStorageTest {
 
     protected Storage storage;
@@ -60,7 +63,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() {
-        Resume resume = new Resume(UUID_1, null);
+        Resume resume = new Resume(UUID_1, "Peter Jackson");
         storage.update(resume);
         Assert.assertSame(resume, storage.get(UUID_1));
     }
@@ -92,8 +95,12 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void getAll() {
-        Resume[] array = {RESUME_1, RESUME_2, RESUME_3};
-        Assert.assertEquals(3, array.length);
+    public void getAllSorted() {
+        storage.getAllSorted();
+        List<Resume> list = new ArrayList<>();
+        list.add(RESUME_1);
+        list.add(RESUME_2);
+        list.add(RESUME_3);
+        Assert.assertEquals(list.size(), storage.size());
     }
 }

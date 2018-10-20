@@ -2,6 +2,7 @@ package ru.storage;
 
 import ru.model.Resume;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,6 @@ public abstract class AbstractMapStorage extends AbstractStorage {
 
     @Override
     protected List<Resume> getResumeList() {
-        return (List<Resume>) resumeMap.values();
+        return new ArrayList<>(resumeMap.values());
     }
 }

@@ -55,6 +55,6 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected List<Resume> getResumeList() {
-        return resumeList;
+        return new ArrayList<>(resumeList);
     }
 }
