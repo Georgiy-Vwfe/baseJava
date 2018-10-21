@@ -7,8 +7,10 @@ import ru.exception.ExistStorageException;
 import ru.exception.NotExistStorageException;
 import ru.model.Resume;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Arrays.asList;
+import static ru.storage.AbstractStorage.getResumeComparator;
 
 public abstract class AbstractStorageTest {
 
@@ -70,7 +72,7 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() {
-        storage.update(RESUME_4);
+        storage.update(new Resume("Kungoro"));
     }
 
     @Test
@@ -96,11 +98,8 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAllSorted() {
-        storage.getAllSorted();
-        List<Resume> list = new ArrayList<>();
-        list.add(RESUME_1);
-        list.add(RESUME_2);
-        list.add(RESUME_3);
-        Assert.assertEquals(list.size(), storage.size());
+        List<Resume> list = asList(RESUME_1, RESUME_2, RESUME_3);
+        list.sort(getResumeComparator());
+        Assert.assertEquals(list, storage.getAllSorted());
     }
 }
