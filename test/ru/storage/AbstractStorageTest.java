@@ -10,7 +10,7 @@ import ru.model.Resume;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static ru.storage.AbstractStorage.getResumeComparator;
+import static ru.storage.AbstractStorage.RESUME_COMPARATOR;
 
 public abstract class AbstractStorageTest {
 
@@ -99,7 +99,7 @@ public abstract class AbstractStorageTest {
     @Test
     public void getAllSorted() {
         List<Resume> list = asList(RESUME_1, RESUME_2, RESUME_3);
-        list.sort(getResumeComparator());
+        list.sort(RESUME_COMPARATOR);
         Assert.assertEquals(list, storage.getAllSorted());
     }
 }

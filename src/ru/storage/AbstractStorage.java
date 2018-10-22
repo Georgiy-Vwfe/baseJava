@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class AbstractStorage implements Storage {
 
-    private static final Comparator<Resume> RESUME_COMPARATOR = (r1, r2) -> Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid).compare(r1, r2);
+    protected static final Comparator<Resume> RESUME_COMPARATOR = (r1, r2) -> Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid).compare(r1, r2);
 
     protected abstract void saveEntity(Object identifier, Resume resume);
 
@@ -50,10 +50,6 @@ public abstract class AbstractStorage implements Storage {
         List<Resume> resumeAsSortedList = getResumeList();
         resumeAsSortedList.sort(RESUME_COMPARATOR);
         return resumeAsSortedList;
-    }
-
-    public static Comparator<Resume> getResumeComparator() {
-        return RESUME_COMPARATOR;
     }
 
     private Object checkForExist(String uuid) {
