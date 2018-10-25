@@ -51,5 +51,4 @@ public abstract class AbstractMapStorage extends AbstractStorage {
     protected List<Resume> getResumeList() {
         return new ArrayList<>(resumeMap.values());
     }
-
 }

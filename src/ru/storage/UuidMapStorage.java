@@ -3,7 +3,7 @@ package ru.storage;
 public class UuidMapStorage extends AbstractMapStorage {
 
     @Override
-    protected Object getIdentifier(String uuid) {
+    protected String getIdentifier(String uuid) {
         if (resumeMap.get(uuid) == null) {
             return null;
         } else {

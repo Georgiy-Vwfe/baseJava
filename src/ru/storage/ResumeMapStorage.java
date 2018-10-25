@@ -5,7 +5,7 @@ import ru.model.Resume;
 public class ResumeMapStorage extends AbstractMapStorage {
 
     @Override
-    protected Object getIdentifier(String uuid) {
+    protected Resume getIdentifier(String uuid) {
         Resume resume = resumeMap.get(uuid);
         if (resume == null) {
             return null;

@@ -14,7 +14,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object getIdentifier(String uuid) {
+    protected Integer getIdentifier(String uuid) {
         for (Resume resume : resumeList) {
             if (resume.getUuid().equals(uuid)) {
                 return resumeList.indexOf(resume);

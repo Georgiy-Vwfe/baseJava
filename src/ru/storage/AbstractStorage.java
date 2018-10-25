@@ -7,21 +7,21 @@ import ru.model.Resume;
 import java.util.Comparator;
 import java.util.List;
 
-public abstract class AbstractStorage implements Storage {
+public abstract class AbstractStorage<ID> implements Storage {
 
     protected static final Comparator<Resume> RESUME_COMPARATOR = (r1, r2) -> Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid).compare(r1, r2);
 
-    protected abstract void saveEntity(Object identifier, Resume resume);
+    protected abstract void saveEntity(ID identifier, Resume resume);
 
-    protected abstract Object getIdentifier(String uuid);
+    protected abstract ID getIdentifier(String uuid);
 
-    protected abstract void deleteEntity(Object identifier);
+    protected abstract void deleteEntity(ID identifier);
 
-    protected abstract void doUpdate(Object identifier, Resume resume);
+    protected abstract void doUpdate(ID identifier, Resume resume);
 
-    protected abstract Resume doGet(Object identifier);
+    protected abstract Resume doGet(ID identifier);
 
-    protected abstract Boolean isExist(Object identifier);
+    protected abstract Boolean isExist(ID identifier);
 
     protected abstract List<Resume> getResumeList();
 
@@ -52,16 +52,16 @@ public abstract class AbstractStorage implements Storage {
         return resumeAsSortedList;
     }
 
-    private Object checkForExist(String uuid) {
-        Object identifier = getIdentifier(uuid);
+    private ID checkForExist(String uuid) {
+        ID identifier = getIdentifier(uuid);
         if (isExist(identifier)) {
             throw new ExistStorageException(uuid);
         }
         return identifier;
     }
 
-    private Object checkForNotExist(String uuid) {
-        Object identifier = getIdentifier(uuid);
+    private ID checkForNotExist(String uuid) {
+        ID identifier = getIdentifier(uuid);
         if (!isExist(identifier)) {
             throw new NotExistStorageException(uuid);
         }
