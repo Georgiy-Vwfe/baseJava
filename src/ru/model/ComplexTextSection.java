@@ -1,14 +1,13 @@
 package ru.model;
 
-public class ComplexTextSection {
-    private String label;
+public class ComplexTextSection extends AbstractLabelSection {
     private String subLabel;
     private String date;
     private String title;
     private String titleDescription;
 
     public ComplexTextSection(String label, String subLabel, String date, String title, String titleDescription) {
-        this.label = label;
+        super(label);
         this.subLabel = subLabel;
         this.date = date;
         this.title = title;
@@ -50,11 +49,10 @@ public class ComplexTextSection {
     @Override
     public String toString() {
         return "ComplexTextSection{" +
-                "label='" + label + '\'' +
-                ", subLabel='" + subLabel + '\'' +
+                "subLabel='" + subLabel + '\'' +
                 ", date='" + date + '\'' +
                 ", title='" + title + '\'' +
                 ", titleDescription='" + titleDescription + '\'' +
-                '}';
+                "} " + super.toString();
     }
 }

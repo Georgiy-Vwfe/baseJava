@@ -1,5 +1,6 @@
 package ru.model;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -8,13 +9,18 @@ public class Resume implements Comparable<Resume> {
     private final String uuid;
     private String fullName;
 
-    public Resume(String fullName) {
-        this(UUID.randomUUID().toString(), fullName);
+    private Map<SectionContacts, String> contacts;
+    private Map<SectionType, AbstractLabelSection> sectionTypes;
+
+    public Resume(String fullName, Map<SectionContacts, String> contacts, Map<SectionType, AbstractLabelSection> sectionTypes) {
+        this(UUID.randomUUID().toString(), fullName, contacts, sectionTypes);
     }
 
-    public Resume(String uuid, String fullName) {
+    public Resume(String uuid, String fullName, Map<SectionContacts, String> contacts, Map<SectionType, AbstractLabelSection> sectionTypes) {
         this.uuid = uuid;
         this.fullName = fullName;
+        this.contacts = contacts;
+        this.sectionTypes = sectionTypes;
     }
 
     public String getUuid() {
@@ -25,8 +31,24 @@ public class Resume implements Comparable<Resume> {
         return fullName;
     }
 
+    public Map<SectionContacts, String> getContacts() {
+        return contacts;
+    }
+
+    public Map<SectionType, AbstractLabelSection> getSectionTypes() {
+        return sectionTypes;
+    }
+
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public void setContacts(Map<SectionContacts, String> contacts) {
+        this.contacts = contacts;
+    }
+
+    public void setSectionTypes(Map<SectionType, AbstractLabelSection> sectionTypes) {
+        this.sectionTypes = sectionTypes;
     }
 
     @Override
