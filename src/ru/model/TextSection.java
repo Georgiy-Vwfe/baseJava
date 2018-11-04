@@ -1,10 +1,10 @@
 package ru.model;
 
-public class TextSection extends AbstractLabelSection {
+public class TextSection extends AbstractSection {
     private String text;
 
-    public TextSection(String label, String text) {
-        super(label);
+    public TextSection(String text) {
+        super();
         this.text = text;
     }
 

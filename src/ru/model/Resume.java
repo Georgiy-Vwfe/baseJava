@@ -10,13 +10,23 @@ public class Resume implements Comparable<Resume> {
     private String fullName;
 
     private Map<SectionContacts, String> contacts;
-    private Map<SectionType, AbstractLabelSection> sectionTypes;
+    private Map<SectionType, AbstractSection> sectionTypes;
 
-    public Resume(String fullName, Map<SectionContacts, String> contacts, Map<SectionType, AbstractLabelSection> sectionTypes) {
+    public Resume(String fullName, Map<SectionContacts, String> contacts, Map<SectionType, AbstractSection> sectionTypes) {
         this(UUID.randomUUID().toString(), fullName, contacts, sectionTypes);
     }
 
-    public Resume(String uuid, String fullName, Map<SectionContacts, String> contacts, Map<SectionType, AbstractLabelSection> sectionTypes) {
+    public Resume(String uuid, String fullName) {
+        this.uuid = uuid;
+        this.fullName = fullName;
+    }
+
+    public Resume(String fullName) {
+        this.fullName = fullName;
+        this.uuid = UUID.randomUUID().toString();
+    }
+
+    public Resume(String uuid, String fullName, Map<SectionContacts, String> contacts, Map<SectionType, AbstractSection> sectionTypes) {
         this.uuid = uuid;
         this.fullName = fullName;
         this.contacts = contacts;
@@ -35,7 +45,7 @@ public class Resume implements Comparable<Resume> {
         return contacts;
     }
 
-    public Map<SectionType, AbstractLabelSection> getSectionTypes() {
+    public Map<SectionType, AbstractSection> getSectionTypes() {
         return sectionTypes;
     }
 
@@ -47,7 +57,7 @@ public class Resume implements Comparable<Resume> {
         this.contacts = contacts;
     }
 
-    public void setSectionTypes(Map<SectionType, AbstractLabelSection> sectionTypes) {
+    public void setSectionTypes(Map<SectionType, AbstractSection> sectionTypes) {
         this.sectionTypes = sectionTypes;
     }
 
@@ -70,6 +80,8 @@ public class Resume implements Comparable<Resume> {
         return "Resume{" +
                 "uuid='" + uuid + '\'' +
                 ", fullName='" + fullName + '\'' +
+                ", contacts=" + contacts +
+                ", sectionTypes=" + sectionTypes +
                 '}';
     }
 

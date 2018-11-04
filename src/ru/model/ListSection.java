@@ -2,11 +2,11 @@ package ru.model;
 
 import java.util.ArrayList;
 
-public class ListSection extends AbstractLabelSection {
+public class ListSection extends AbstractSection {
     private ArrayList listElement;
 
-    public ListSection(String label, ArrayList listElement) {
-        super(label);
+    public ListSection(ArrayList listElement) {
+        super();
         this.listElement = listElement;
     }
 

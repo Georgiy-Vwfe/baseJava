@@ -16,16 +16,16 @@ public abstract class AbstractStorageTest {
 
     protected Storage storage;
     private static final String UUID_1 = "0";
-    private static final Resume RESUME_1 = new Resume(UUID_1, "Mark Gess", sectionTypes);
+    private static final Resume RESUME_1 = new Resume(UUID_1, "Mark Gess");
 
     private static final String UUID_2 = "1";
-    private static final Resume RESUME_2 = new Resume(UUID_2, "Daniel Watson", sectionTypes);
+    private static final Resume RESUME_2 = new Resume(UUID_2, "Daniel Watson");
 
     private static final String UUID_3 = "2";
-    private static final Resume RESUME_3 = new Resume(UUID_3, "Henry Ford", sectionTypes);
+    private static final Resume RESUME_3 = new Resume(UUID_3, "Henry Ford");
 
     private static final String UUID_4 = "3";
-    private static final Resume RESUME_4 = new Resume(UUID_4, "Frans Ferdinand", sectionTypes);
+    private static final Resume RESUME_4 = new Resume(UUID_4, "Frans Ferdinand");
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -65,14 +65,14 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() {
-        Resume resume = new Resume(UUID_1, "Peter Jackson", sectionTypes);
+        Resume resume = new Resume(UUID_1, "Peter Jackson");
         storage.update(resume);
         Assert.assertSame(resume, storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() {
-        storage.update(new Resume("Kungoro", sectionTypes));
+        storage.update(new Resume("Kungoro"));
     }
 
     @Test
