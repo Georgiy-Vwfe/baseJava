@@ -9,12 +9,8 @@ public class Resume implements Comparable<Resume> {
     private final String uuid;
     private String fullName;
 
-    private Map<SectionContacts, String> contacts;
-    private Map<SectionType, AbstractSection> sectionTypes;
-
-    public Resume(String fullName, Map<SectionContacts, String> contacts, Map<SectionType, AbstractSection> sectionTypes) {
-        this(UUID.randomUUID().toString(), fullName, contacts, sectionTypes);
-    }
+    private Map<ContactType, String> contacts;
+    private Map<SectionType, AbstractSection> sections;
 
     public Resume(String uuid, String fullName) {
         this.uuid = uuid;
@@ -26,11 +22,11 @@ public class Resume implements Comparable<Resume> {
         this.uuid = UUID.randomUUID().toString();
     }
 
-    public Resume(String uuid, String fullName, Map<SectionContacts, String> contacts, Map<SectionType, AbstractSection> sectionTypes) {
+    public Resume(String uuid, String fullName, Map<ContactType, String> contacts, Map<SectionType, AbstractSection> sections) {
         this.uuid = uuid;
         this.fullName = fullName;
         this.contacts = contacts;
-        this.sectionTypes = sectionTypes;
+        this.sections = sections;
     }
 
     public String getUuid() {
@@ -41,24 +37,24 @@ public class Resume implements Comparable<Resume> {
         return fullName;
     }
 
-    public Map<SectionContacts, String> getContacts() {
+    public Map<ContactType, String> getContacts() {
         return contacts;
     }
 
-    public Map<SectionType, AbstractSection> getSectionTypes() {
-        return sectionTypes;
+    public Map<SectionType, AbstractSection> getSections() {
+        return sections;
     }
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
-    public void setContacts(Map<SectionContacts, String> contacts) {
+    public void setContacts(Map<ContactType, String> contacts) {
         this.contacts = contacts;
     }
 
-    public void setSectionTypes(Map<SectionType, AbstractSection> sectionTypes) {
-        this.sectionTypes = sectionTypes;
+    public void setSections(Map<SectionType, AbstractSection> sections) {
+        this.sections = sections;
     }
 
     @Override
@@ -77,12 +73,7 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public String toString() {
-        return "Resume{" +
-                "uuid='" + uuid + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", contacts=" + contacts +
-                ", sectionTypes=" + sectionTypes +
-                '}';
+        return uuid + "\n" + fullName + "\n" + contacts + "\n" + sections;
     }
 
     @Override

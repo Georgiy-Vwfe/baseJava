@@ -1,27 +1,38 @@
 package ru.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ListSection extends AbstractSection {
-    private ArrayList listElement;
+    private ArrayList listElements;
 
-    public ListSection(ArrayList listElement) {
-        super();
-        this.listElement = listElement;
+    public ListSection(ArrayList listElements) {
+        this.listElements = listElements;
     }
 
-    public ArrayList getListElement() {
-        return listElement;
+    public ArrayList getListElements() {
+        return listElements;
     }
 
-    public void setListElement(ArrayList listElement) {
-        this.listElement = listElement;
+    public void setListElements(ArrayList listElements) {
+        this.listElements = listElements;
     }
 
     @Override
     public String toString() {
-        return "ListSection{" +
-                "listElement=" + listElement +
-                "} " + super.toString();
+        return " " + listElements + "\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ListSection that = (ListSection) o;
+        return Objects.equals(listElements, that.listElements);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(listElements);
     }
 }

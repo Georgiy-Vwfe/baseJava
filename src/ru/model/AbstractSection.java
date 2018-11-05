@@ -1,4 +1,4 @@
 package ru.model;
 
-public class AbstractSection {
-}
+public abstract class AbstractSection {}
+

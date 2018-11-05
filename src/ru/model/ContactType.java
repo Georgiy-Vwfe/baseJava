@@ -1,6 +1,6 @@
 package ru.model;
 
-public enum SectionContacts {
+public enum ContactType {
     PHONE_NUMBER("Номер телефона"),
     SKYPE("Skype"),
     EMAIL("Почта"),
@@ -10,7 +10,7 @@ public enum SectionContacts {
 
     private String title;
 
-    SectionContacts(String title) {
+    ContactType(String title) {
         this.title = title;
     }
     public String getTitle() {
