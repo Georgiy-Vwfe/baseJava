@@ -1,6 +1,6 @@
 package ru.model;
 
-import java.util.Map;
+import java.util.EnumMap;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -9,8 +9,8 @@ public class Resume implements Comparable<Resume> {
     private final String uuid;
     private String fullName;
 
-    private Map<ContactType, String> contacts;
-    private Map<SectionType, AbstractSection> sections;
+    private EnumMap<ContactType, String> contacts;
+    private EnumMap<SectionType, AbstractSection> sections;
 
     public Resume(String uuid, String fullName) {
         this.uuid = uuid;
@@ -22,7 +22,7 @@ public class Resume implements Comparable<Resume> {
         this.uuid = UUID.randomUUID().toString();
     }
 
-    public Resume(String uuid, String fullName, Map<ContactType, String> contacts, Map<SectionType, AbstractSection> sections) {
+    public Resume(String uuid, String fullName, EnumMap<ContactType, String> contacts, EnumMap<SectionType, AbstractSection> sections) {
         this.uuid = uuid;
         this.fullName = fullName;
         this.contacts = contacts;
@@ -37,11 +37,11 @@ public class Resume implements Comparable<Resume> {
         return fullName;
     }
 
-    public Map<ContactType, String> getContacts() {
+    public EnumMap<ContactType, String> getContacts() {
         return contacts;
     }
 
-    public Map<SectionType, AbstractSection> getSections() {
+    public EnumMap<SectionType, AbstractSection> getSections() {
         return sections;
     }
 
@@ -49,11 +49,11 @@ public class Resume implements Comparable<Resume> {
         this.fullName = fullName;
     }
 
-    public void setContacts(Map<ContactType, String> contacts) {
+    public void setContacts(EnumMap<ContactType, String> contacts) {
         this.contacts = contacts;
     }
 
-    public void setSections(Map<SectionType, AbstractSection> sections) {
+    public void setSections(EnumMap<SectionType, AbstractSection> sections) {
         this.sections = sections;
     }
 
