@@ -5,14 +5,16 @@ import java.util.*;
 
 public class ModelTest {
     public static void main(String[] args) {
-        Map<ContactType, String> contacts = new HashMap<>();
-        Map<SectionType, AbstractSection> sections = new HashMap<>();
+        EnumMap<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+        EnumMap<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
         setup(contacts, sections);
-        Resume r1 = new Resume("1", "Григорий Кислин", contacts, sections);
+        Resume r1 = new Resume("1", "Григорий Кислин");
+        r1.setContacts(contacts);
+        r1.setSections(sections);
         System.out.println(r1.toString());
     }
 
-    private static void setup(Map<ContactType, String> contacts, Map<SectionType, AbstractSection> sections) {
+    private static void setup(EnumMap<ContactType, String> contacts, EnumMap<SectionType, AbstractSection> sections) {
         contacts.put(ContactType.PHONE_NUMBER, "+7(921) 855-0482");
         contacts.put(ContactType.SKYPE, "grigory.kislin");
         contacts.put(ContactType.EMAIL, "gkislin@yandex.ru");

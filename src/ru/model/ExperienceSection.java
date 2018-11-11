@@ -4,15 +4,15 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class ExperienceSection extends AbstractSection {
-    private String subLabel;
+    private String company;
     private String link;
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private String title;
     private String description;
 
-    public ExperienceSection(String subLabel, String link, LocalDate dateFrom, LocalDate dateTo, String title, String description) {
-        this.subLabel = subLabel;
+    public ExperienceSection(String company, String link, LocalDate dateFrom, LocalDate dateTo, String title, String description) {
+        this.company = company;
         this.link = link;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
@@ -20,12 +20,12 @@ public class ExperienceSection extends AbstractSection {
         this.description = description;
     }
 
-    public String getSubLabel() {
-        return subLabel;
+    public String getCompany() {
+        return company;
     }
 
-    public void setSubLabel(String subLabel) {
-        this.subLabel = subLabel;
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     public String getLink() {
@@ -73,7 +73,7 @@ public class ExperienceSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ExperienceSection that = (ExperienceSection) o;
-        return Objects.equals(subLabel, that.subLabel) &&
+        return Objects.equals(company, that.company) &&
                 Objects.equals(link, that.link) &&
                 Objects.equals(dateFrom, that.dateFrom) &&
                 Objects.equals(dateTo, that.dateTo) &&
@@ -83,20 +83,11 @@ public class ExperienceSection extends AbstractSection {
 
     @Override
     public int hashCode() {
-        return Objects.hash(subLabel, link, dateFrom, dateTo, title, description);
+        return Objects.hash(company, link, dateFrom, dateTo, title, description);
     }
 
     @Override
     public String toString() {
-        if (subLabel == null && description == null) {
-            return "\n" + dateFrom + " - " + dateTo + "\n" + title + "\n";
-        } else if (subLabel == null) {
-            return "\n" + dateFrom + " - " + dateTo + "\n" + title + "\n" + description + "\n";
-        } else if (description == null) {
-            return "\n" + subLabel + "\n" + link + "\n" + dateFrom + " - " + dateTo + "\n" + title + "\n";
-        } else {
-            return "\n" + subLabel + "\n" + link + "\n" + dateFrom + " - " + dateTo + "\n" + title + "\n" + description;
-        }
+        return company + "\n" + link + "\n" + dateFrom + "\n" + dateTo + "\n" + title + "\n" + "\n" + description;
     }
 }
-
