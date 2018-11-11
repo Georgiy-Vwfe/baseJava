@@ -44,7 +44,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public int size() {
+    public long size() {
         return resumeList.size();
     }
 

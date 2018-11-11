@@ -1,10 +1,7 @@
 import ru.model.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ModelTest {
     public static void main(String[] args) {
@@ -75,7 +72,7 @@ public class ModelTest {
                 new ExperienceSection("Siemens AG", "http://www.siemens.ru/", LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1), "3 месяца обучения мобильным IN сетям (Берлин)", null),
                 new ExperienceSection("Alcatel", "http://www.alcatel.ru/", LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1), "6 месяцев обучения цифровым телефонным сетям (Москва)", null),
                 new ExperienceSection("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "http://www.ifmo.ru/", LocalDate.of(1993 , 9, 1), LocalDate.of(1996, 7, 1), "Аспирантура (программист С, С++)", null),
-                new ExperienceSection("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "http://www.ifmo.ru/", LocalDate.of(1987 , 9, 1), LocalDate.of(1993, 7, 1), "Инженер (программист Fortran, C)", null),
+                new ExperienceSection(null, null, LocalDate.of(1987 , 9, 1), LocalDate.of(1993, 7, 1), "Инженер (программист Fortran, C)", null),
                 new ExperienceSection("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/", LocalDate.of(1984, 9, 1), LocalDate.of(1987, 6, 1), "Закончил с отличием", null)
         };
         AbstractSection education = new ListSection(new ArrayList(Arrays.asList(educationList)));

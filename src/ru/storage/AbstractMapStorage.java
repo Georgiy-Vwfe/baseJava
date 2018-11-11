@@ -38,7 +38,7 @@ public abstract class AbstractMapStorage extends AbstractStorage {
     }
 
     @Override
-    public int size() {
+    public long size() {
         return resumeMap.size();
     }
 

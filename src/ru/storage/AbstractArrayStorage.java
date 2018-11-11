@@ -48,7 +48,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public int size() {
+    public long size() {
         return sizeOfResume;
     }
 

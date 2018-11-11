@@ -88,6 +88,15 @@ public class ExperienceSection extends AbstractSection {
 
     @Override
     public String toString() {
-        return subLabel + "\n" + link + "\n" + dateFrom + "\n" + dateTo + "\n" + title + "\n" + "\n" + description;
+        if (subLabel == null && description == null) {
+            return "\n" + dateFrom + " - " + dateTo + "\n" + title + "\n";
+        } else if (subLabel == null) {
+            return "\n" + dateFrom + " - " + dateTo + "\n" + title + "\n" + description + "\n";
+        } else if (description == null) {
+            return "\n" + subLabel + "\n" + link + "\n" + dateFrom + " - " + dateTo + "\n" + title + "\n";
+        } else {
+            return "\n" + subLabel + "\n" + link + "\n" + dateFrom + " - " + dateTo + "\n" + title + "\n" + description;
+        }
     }
 }
+
