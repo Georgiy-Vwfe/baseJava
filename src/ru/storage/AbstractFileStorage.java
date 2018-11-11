@@ -5,6 +5,8 @@ import ru.model.Resume;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,8 +71,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected Resume doGet(File file) {
-        //return file.getPath();
-        return null;
+        return file.canRead();
     }
 
     @Override
@@ -84,6 +85,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public List<Resume> getAllSorted() {
-        return null;
+        return new ArrayList(Arrays.asList(directory.listFiles()));
     }
 }
