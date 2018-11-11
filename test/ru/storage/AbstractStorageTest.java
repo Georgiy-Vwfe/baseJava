@@ -16,8 +16,8 @@ import static ru.storage.AbstractStorage.RESUME_COMPARATOR;
 public abstract class AbstractStorageTest {
     protected Storage storage;
 
-    private static Map<ContactType, String> contacts = new HashMap<>();
-    private static Map<SectionType, AbstractSection> sections = new HashMap<>();
+    private static EnumMap<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private static EnumMap<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     private static final String UUID_1 = "0";
     private static final Resume RESUME_1 = new Resume(UUID_1, "Григорий Кислин", contacts, sections);
