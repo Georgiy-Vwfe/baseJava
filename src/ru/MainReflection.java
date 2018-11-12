@@ -1,4 +1,4 @@
-
+package ru;
 
 import ru.model.Resume;
 

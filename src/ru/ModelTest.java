@@ -1,3 +1,5 @@
+package ru;
+
 import ru.model.*;
 
 import java.time.LocalDate;
@@ -14,7 +16,7 @@ public class ModelTest {
         System.out.println(r1.toString());
     }
 
-    private static void setup(EnumMap<ContactType, String> contacts, EnumMap<SectionType, AbstractSection> sections) {
+    public static void setup(Map<ContactType, String> contacts, Map<SectionType, AbstractSection> sections) {
         contacts.put(ContactType.PHONE_NUMBER, "+7(921) 855-0482");
         contacts.put(ContactType.SKYPE, "grigory.kislin");
         contacts.put(ContactType.EMAIL, "gkislin@yandex.ru");

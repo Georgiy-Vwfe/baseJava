@@ -1,3 +1,5 @@
+package ru;
+
 import ru.model.Resume;
 import ru.storage.SortedArrayStorage;
 import ru.storage.Storage;
