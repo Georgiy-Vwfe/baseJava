@@ -84,6 +84,7 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() {
+        delete();
         storage.update(new Resume(UUID_1, "Kungoro"));
     }
 
