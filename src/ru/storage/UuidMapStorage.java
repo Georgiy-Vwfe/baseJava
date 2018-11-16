@@ -4,15 +4,15 @@ public class UuidMapStorage extends AbstractMapStorage {
 
     @Override
     protected String getIdentifier(String uuid) {
-        if (resumeMap.get(uuid) == null) {
+        try {
+            return resumeMap.get(uuid).getUuid();
+        } catch (NullPointerException e) {
             return null;
-        } else {
-            return uuid;
         }
     }
 
     @Override
-    protected String putResumeUuid(Object identifier) {
-        return (String)identifier;
+    protected String putResumeIdentifier(Object identifier) {
+        return (String) identifier;
     }
 }

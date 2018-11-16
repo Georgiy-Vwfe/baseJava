@@ -56,15 +56,17 @@ public abstract class AbstractStorage<ID> implements Storage {
         ID identifier = getIdentifier(uuid);
         if (isExist(identifier)) {
             throw new ExistStorageException(uuid);
+        } else {
+            return identifier;
         }
-        return identifier;
     }
 
     private ID checkForNotExist(String uuid) {
         ID identifier = getIdentifier(uuid);
         if (!isExist(identifier)) {
             throw new NotExistStorageException(uuid);
+        } else {
+            return identifier;
         }
-        return identifier;
     }
 }

@@ -37,12 +37,11 @@ public class MainFile {
         File f = new File(szDir);
         String[] sDirList = f.list();
         int i;
-        for (i = 0; i < sDirList.length; i++) {
+        for (i = 0; i < sDirList.length; i++) { 
             File f1 = new File(szDir + File.separator + sDirList[i]);
-            if (f1.isFile()){
+            if (f1.isFile()) {
                 System.out.println(szDir + File.separator + sDirList[i]);
-            }
-            else {
+            } else {
                 list(szDir + File.separator + sDirList[i]);
             }
         }
