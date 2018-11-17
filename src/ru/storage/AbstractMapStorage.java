@@ -44,7 +44,11 @@ public abstract class AbstractMapStorage extends AbstractStorage {
 
     @Override
     protected Boolean isExist(Object identifier) {
-        return identifier != null;
+        try {
+            return resumeMap.containsKey(putResumeIdentifier(identifier));
+        } catch (NullPointerException e){
+            return false;
+        }
     }
 
     @Override
