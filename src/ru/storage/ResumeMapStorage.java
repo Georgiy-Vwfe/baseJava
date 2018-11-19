@@ -10,7 +10,7 @@ public class ResumeMapStorage extends AbstractMapStorage {
     }
 
     @Override
-    protected String putResumeIdentifier(Object identifier) {
-        return ((Resume) identifier).getUuid();
+    protected String takeUuid(Object resume) {
+        return ((Resume) resume).getUuid();
     }
 }

@@ -8,7 +8,7 @@ public class UuidMapStorage extends AbstractMapStorage {
     }
 
     @Override
-    protected String putResumeIdentifier(Object identifier) {
-        return (String) identifier;
+    protected String takeUuid(Object uuid) {
+        return (String) uuid;
     }
 }

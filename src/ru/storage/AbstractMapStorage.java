@@ -10,7 +10,7 @@ import java.util.Map;
 public abstract class AbstractMapStorage extends AbstractStorage {
     protected Map<String, Resume> resumeMap = new HashMap<>();
 
-    protected abstract String putResumeIdentifier(Object identifier);
+    protected abstract String takeUuid(Object identifier);
 
     @Override
     public void clear() {
@@ -24,17 +24,17 @@ public abstract class AbstractMapStorage extends AbstractStorage {
 
     @Override
     protected void deleteEntity(Object identifier) {
-        resumeMap.remove(putResumeIdentifier(identifier));
+        resumeMap.remove(takeUuid(identifier));
     }
 
     @Override
     protected void doUpdate(Object identifier, Resume resume) {
-        resumeMap.replace(putResumeIdentifier(identifier), resume);
+        resumeMap.replace(takeUuid(identifier), resume);
     }
 
     @Override
     protected Resume doGet(Object identifier) {
-        return resumeMap.get(putResumeIdentifier(identifier));
+        return resumeMap.get(takeUuid(identifier));
     }
 
     @Override
@@ -45,7 +45,7 @@ public abstract class AbstractMapStorage extends AbstractStorage {
     @Override
     protected Boolean isExist(Object identifier) {
         try {
-            return resumeMap.containsKey(putResumeIdentifier(identifier));
+            return resumeMap.containsKey(takeUuid(identifier));
         } catch (NullPointerException e){
             return false;
         }

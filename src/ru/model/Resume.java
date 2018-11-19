@@ -13,6 +13,7 @@ public class Resume implements Comparable<Resume> {
     private EnumMap<SectionType, AbstractSection> sections;
 
     public Resume(String uuid, String fullName) {
+        Objects.requireNonNull(uuid, "Uuid can not be null");
         this.uuid = uuid;
         this.fullName = fullName;
     }
@@ -23,6 +24,7 @@ public class Resume implements Comparable<Resume> {
     }
 
     public Resume(String uuid, String fullName, EnumMap<ContactType, String> contacts, EnumMap<SectionType, AbstractSection> sections) {
+        Objects.requireNonNull(uuid, "Uuid can not be null");
         this.uuid = uuid;
         this.fullName = fullName;
         this.contacts = contacts;
