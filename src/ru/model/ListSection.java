@@ -1,17 +1,18 @@
 package ru.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ListSection extends AbstractSection {
-    private ArrayList<AbstractSection> listElements;
+    private List<String> listElements;
 
     public ListSection(ArrayList listElements) {
         Objects.requireNonNull(listElements, "listElements must not be null");
         this.listElements = listElements;
     }
 
-    public ArrayList getListElements() {
+    public List<String> getListElements() {
         return listElements;
     }
 

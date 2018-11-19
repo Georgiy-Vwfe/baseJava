@@ -10,6 +10,7 @@ import ru.model.ContactType;
 import ru.model.Resume;
 import ru.model.SectionType;
 
+import java.io.File;
 import java.util.EnumMap;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import static ru.ModelTest.sections;
 import static ru.storage.AbstractStorage.RESUME_COMPARATOR;
 
 public abstract class AbstractStorageTest {
+    protected static final File STORAGE_DIR = new File("C:\\Users\\vasi-\\IdeaProjects\\baseJava\\src\\ru\\storage");
     protected Storage storage;
 
     private static final String UUID_1 = "0";

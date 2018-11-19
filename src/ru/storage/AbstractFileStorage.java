@@ -3,8 +3,7 @@ package ru.storage;
 import ru.exception.StorageException;
 import ru.model.Resume;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,8 +25,11 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        if (!directory.delete()) {
-            throw new StorageException("Delete error", directory.getName());
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                deleteEntity(file);
+            }
         }
     }
 
@@ -47,11 +49,11 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
     @Override
-    protected void doUpdate(File file, Resume r) {
+    protected void doUpdate(File file, Resume resume) {
         try {
-            doWrite(r, file);
+            doWrite(resume, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
-            throw new StorageException("Write error", file.getName(), e);
+            throw new StorageException("File write error", resume.getUuid(), e);
         }
     }
 
@@ -61,41 +63,37 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
     @Override
-    protected void saveEntity(File file, Resume r) {
+    protected void saveEntity(File file, Resume resume) {
         try {
             file.createNewFile();
-            doWrite(r, file);
         } catch (IOException e) {
-            throw new StorageException("Write error", file.getName(), e);
+            throw new StorageException("Couldn't create file " + file.getAbsolutePath(), file.getName(), e);
         }
+        doUpdate(file, resume);
     }
 
-    protected abstract void doWrite(Resume r, File file) throws IOException;
+    protected abstract void doWrite(Resume r, OutputStream outputStream) throws IOException;
 
-    protected abstract void doDelete(File file) throws IOException;
-
-    protected abstract Resume doRead(File file) throws IOException;
+    protected abstract Resume doRead(InputStream inputStream) throws IOException;
 
     @Override
     protected Resume doGet(File file) {
         try {
-            return doRead(file);
-        } catch (Exception e) {
-            throw new StorageException("Read error", file.getName(), e);
+            return doRead(new BufferedInputStream(new FileInputStream(file)));
+        } catch (IOException e) {
+            throw new StorageException("File read error", file.getName(), e);
         }
     }
 
     @Override
     protected void deleteEntity(File file) {
-        try {
-            doDelete(file);
-        } catch (IOException e) {
-            throw new StorageException("Delete error", file.getName(), e);
+        if (!file.delete()) {
+            throw new StorageException("File delete error", file.getName());
         }
     }
 
     @Override
-    public List<Resume> getAllSorted() {
+    public List<Resume> getResumeList() {
         return new ArrayList(Arrays.asList(directory.listFiles()));
     }
 }
