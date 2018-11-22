@@ -22,7 +22,7 @@ import static ru.ModelTest.sections;
 import static ru.storage.AbstractStorage.RESUME_COMPARATOR;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("C:\\Users\\vasi-\\IdeaProjects\\baseJava\\src\\ru\\storage");
+    protected static final File STORAGE_DIR = new File("C:\\Users\\vasi-\\IdeaProjects\\baseJava\\storage");
     protected Storage storage;
 
     private static final String UUID_1 = "0";
