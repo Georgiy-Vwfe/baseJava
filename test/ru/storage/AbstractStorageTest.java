@@ -17,6 +17,7 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static ru.ModelTest.contacts;
 import static ru.ModelTest.sections;
 import static ru.storage.AbstractStorage.RESUME_COMPARATOR;
@@ -89,7 +90,7 @@ public abstract class AbstractStorageTest {
     public void update() {
         Resume resume = new Resume(UUID_1, "Peter Jackson");
         storage.update(resume);
-        assertSame(resume, storage.get(UUID_1));
+        assertEquals(resume, storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)
