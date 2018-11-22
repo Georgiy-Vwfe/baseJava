@@ -51,6 +51,17 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
+    public void size() {
+        assertEquals(3, storage.size());
+    }
+
+    @Test
+    public void clear() {
+        storage.clear();
+        assertEquals(0, storage.size());
+    }
+
+    @Test
     public void save() {
         storage.save(RESUME_4);
         assertEquals(4, storage.size());
@@ -94,17 +105,6 @@ public abstract class AbstractStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() {
         storage.get(UUID_4);
-    }
-
-    @Test
-    public void clear() {
-        storage.clear();
-        assertEquals(0, storage.size());
-    }
-
-    @Test
-    public void size() {
-        assertEquals(3, storage.size());
     }
 
     @Test
