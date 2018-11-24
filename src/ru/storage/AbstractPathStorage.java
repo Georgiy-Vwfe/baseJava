@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 
 public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     private Path directory;
@@ -38,71 +37,73 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     public int size() {
-        String[] Paths = directory.list();
-        if (Paths == null) {
-            throw new NullPointerException();
-        } else {
-            return Paths.length;
+        try {
+            return (Files.list(directory).toArray()).length;
+        } catch (IOException e) {
+            throw new StorageException("Path read error", null);
         }
     }
 
     @Override
     protected Path getIdentifier(String uuid) {
-        return new Path(directory, uuid);
+        return Paths.get(directory.toString() + File.separator + uuid);
     }
 
     @Override
-    protected void doUpdate(Path Path, Resume resume) {
+    protected void doUpdate(Path path, Resume resume) {
         try {
-            doWrite(resume, new BufferedOutputStream(new PathOutputStream(Path)));
+            doWrite(resume, new BufferedOutputStream(new FileOutputStream(path.toFile())));
         } catch (IOException e) {
             throw new StorageException("Path write error", resume.getUuid(), e);
         }
     }
 
     @Override
-    protected Boolean isExist(Path Path) {
-        return Path.exists();
+    protected Boolean isExist(Path path) {
+        return Files.exists(path);
     }
 
     @Override
-    protected void saveEntity(Path Path, Resume resume) {
+    protected void saveEntity(Path path, Resume resume) {
         try {
-            Path.createNewPath();
+            Files.createFile(path);
         } catch (IOException e) {
-            throw new StorageException("Couldn't create Path " + Path.getAbsolutePath(), Path.getName(), e);
+            throw new StorageException("Couldn't create path " + path.toString(), resume.getUuid(), e);
         }
-        doUpdate(Path, resume);
+        doUpdate(path, resume);
     }
 
     @Override
-    protected Resume doGet(Path Path) {
+    protected Resume doGet(Path path) {
         try {
-            return doRead(new BufferedInputStream(new PathInputStream(Path)));
+            return doRead(new BufferedInputStream(new FileInputStream(path.toFile())));
         } catch (IOException e) {
-            throw new StorageException("Path read error", Path.getName(), e);
+            throw new StorageException("path read error", path.toString(), e);
         }
     }
 
     @Override
-    protected void deleteEntity(Path Path) {
-        if (!Path.delete()) {
-            throw new StorageException("Path delete error", Path.getName());
+    protected void deleteEntity(Path path) {
+        try {
+            if (!Files.deleteIfExists(path)) {
+                throw new StorageException("file is not exist", path.toString());
+            }
+        } catch (IOException e) {
+            throw new StorageException("path delete error", path.toString());
         }
     }
 
-    //
     @Override
     public List<Resume> getResumeList() {
-        Path[] Paths = directory.listPaths();
-        if (Paths == null) {
-            throw new StorageException("Directory read error", null);
-        } else {
-            List<Resume> list = new ArrayList<>(Paths.length);
-            for (Path Path : Paths) {
-                list.add(doGet(Path));
+        try {
+            Object[] paths = Files.list(directory).toArray();
+            List<Resume> list = new ArrayList<>(paths.length);
+            for (Object Path : paths) {
+                list.add(doGet((Path) Path));
             }
             return list;
+        } catch (IOException e) {
+            throw new StorageException("path read error", null);
         }
     }
 

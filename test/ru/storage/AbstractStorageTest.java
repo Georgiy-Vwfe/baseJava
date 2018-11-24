@@ -10,24 +10,21 @@ import ru.model.ContactType;
 import ru.model.Resume;
 import ru.model.SectionType;
 
-import java.io.File;
 import java.util.EnumMap;
 import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static ru.ModelTest.contacts;
 import static ru.ModelTest.sections;
 import static ru.storage.AbstractStorage.RESUME_COMPARATOR;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("C:\\Users\\vasi-\\IdeaProjects\\baseJava\\storage");
+    protected static final String STORAGE_DIR = "storage";
     protected Storage storage;
 
     private static final String UUID_1 = "0";
-    private static final Resume RESUME_1 = new Resume(UUID_1, "Григорий Кислин", (EnumMap<ContactType, String>)ModelTest.contacts, (EnumMap<SectionType, AbstractSection>)ModelTest.sections);
+    private static final Resume RESUME_1 = new Resume(UUID_1, "Григорий Кислин");
 
     private static final String UUID_2 = "1";
     private static final Resume RESUME_2 = new Resume(UUID_2, "Daniel Watson");
@@ -45,6 +42,8 @@ public abstract class AbstractStorageTest {
     @Before
     public void setUp() {
         storage.clear();
+        RESUME_1.setContacts((EnumMap<ContactType, String>) contacts);
+        RESUME_1.setSections((EnumMap<SectionType, AbstractSection>) sections);
         ModelTest.setup(contacts, sections);
         storage.save(RESUME_1);
         storage.save(RESUME_2);
