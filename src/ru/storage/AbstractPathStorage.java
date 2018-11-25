@@ -11,12 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class AbstractPathStorage extends AbstractStorage<Path> {
+public abstract class AbstractPathStorage extends AbstractStorage<Path> implements SerializeStrategy {
     private Path directory;
-
-    protected abstract void doWrite(Resume resume, OutputStream outputStream) throws IOException;
-
-    protected abstract Resume doRead(InputStream inputStream) throws IOException;
 
     protected AbstractPathStorage(String dir) {
         directory = Paths.get(dir);

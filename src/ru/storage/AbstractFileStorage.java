@@ -5,17 +5,11 @@ import ru.model.Resume;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class AbstractFileStorage extends AbstractStorage<File> {
-
+public abstract class AbstractFileStorage extends AbstractStorage<File> implements SerializeStrategy {
     private File directory;
-
-    protected abstract void doWrite(Resume resume, OutputStream outputStream) throws IOException;
-
-    protected abstract Resume doRead(InputStream inputStream) throws IOException;
 
     protected AbstractFileStorage(File directory) {
         Objects.requireNonNull(directory, "directory must not be null");
