@@ -11,10 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class AbstractPathStorage extends AbstractStorage<Path> implements SerializeStrategy {
+public class ObjectPathStorage extends AbstractStorage<Path> {
     private Path directory;
+    private ObjectStreamSerializer objectStreamSerializer = new ObjectStreamSerializer();
 
-    protected AbstractPathStorage(String dir) {
+    protected ObjectPathStorage(String dir) {
         directory = Paths.get(dir);
         Objects.requireNonNull(directory, "directory must not be null");
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
@@ -48,7 +49,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> implemen
     @Override
     protected void doUpdate(Path path, Resume resume) {
         try {
-            doWrite(resume, new BufferedOutputStream(new FileOutputStream(path.toFile())));
+            objectStreamSerializer.doWrite(resume, new BufferedOutputStream(new FileOutputStream(path.toFile())));
         } catch (IOException e) {
             throw new StorageException("Path write error", resume.getUuid(), e);
         }
@@ -72,7 +73,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> implemen
     @Override
     protected Resume doGet(Path path) {
         try {
-            return doRead(new BufferedInputStream(new FileInputStream(path.toFile())));
+            return objectStreamSerializer.doRead(new BufferedInputStream(new FileInputStream(path.toFile())));
         } catch (IOException e) {
             throw new StorageException("path read error", path.toString(), e);
         }

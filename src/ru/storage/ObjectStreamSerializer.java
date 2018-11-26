@@ -5,11 +5,7 @@ import ru.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamStorage extends AbstractFileStorage {
-
-    protected ObjectStreamStorage(File directory) {
-        super(directory);
-    }
+public class ObjectStreamSerializer implements SerializeStrategy{
 
     @Override
     public void doWrite(Resume resume, OutputStream outputStream) throws IOException {
