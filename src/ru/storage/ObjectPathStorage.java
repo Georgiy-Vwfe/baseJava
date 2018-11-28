@@ -2,6 +2,7 @@ package ru.storage;
 
 import ru.exception.StorageException;
 import ru.model.Resume;
+import ru.storage.serialize.ObjectStreamSerializer;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -13,14 +14,15 @@ import java.util.Objects;
 
 public class ObjectPathStorage extends AbstractStorage<Path> {
     private Path directory;
-    private ObjectStreamSerializer objectStreamSerializer = new ObjectStreamSerializer();
+    private ObjectStreamSerializer objectStreamSerializer;
 
-    protected ObjectPathStorage(String dir) {
+    public ObjectPathStorage(String dir, ObjectStreamSerializer objectStreamSerializer) {
         directory = Paths.get(dir);
         Objects.requireNonNull(directory, "directory must not be null");
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
             throw new IllegalArgumentException(dir + " is not directory or is not writable");
         }
+        this.objectStreamSerializer = objectStreamSerializer;
     }
 
     @Override

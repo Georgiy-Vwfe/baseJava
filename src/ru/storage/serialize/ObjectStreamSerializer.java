@@ -1,12 +1,11 @@
-package ru.storage;
+package ru.storage.serialize;
 
 import ru.exception.StorageException;
 import ru.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamSerializer implements SerializeStrategy{
-
+public class ObjectStreamSerializer implements SerializeStrategy {
     @Override
     public void doWrite(Resume resume, OutputStream outputStream) throws IOException {
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {

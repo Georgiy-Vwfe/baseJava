@@ -1,4 +1,4 @@
-package ru.storage;
+package ru.storage.serialize;
 
 import ru.model.Resume;
 

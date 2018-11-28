@@ -42,13 +42,8 @@ public class MainFile {
                 if (f.isFile()) {
                     System.out.println(directory + File.separator + "\n\t" + file);
                 } else {
-                    for (String file1 : files) {
-                        if (file1.equals(file)) {
-                        } else {
-                            list(directory + File.separator + file);
-                        }
-                    }
-
+                    System.out.println(directory + File.separator + file);
+                    list(directory + File.separator + file);
                 }
             }
         }
