@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ObjectFileStorage extends AbstractStorage<File> {
+public class FileStorage extends AbstractStorage<File> {
     private File directory;
     private ObjectStreamSerializer objectStreamSerializer;
 
-    protected ObjectFileStorage(File directory, ObjectStreamSerializer objectStreamSerializer) {
+    protected FileStorage(File directory, ObjectStreamSerializer objectStreamSerializer) {
         Objects.requireNonNull(directory, "directory must not be null");
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");

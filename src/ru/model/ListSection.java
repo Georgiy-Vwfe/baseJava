@@ -9,16 +9,23 @@ public class ListSection extends AbstractSection {
 
     private List<String> listElements;
 
+    public ListSection() {
+    }
+
     public ListSection(ArrayList listElements) {
         Objects.requireNonNull(listElements, "listElements must not be null");
         this.listElements = listElements;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public List<String> getListElements() {
         return listElements;
     }
 
-    public void setListElements(ArrayList listElements) {
+    public void setListElements(List<String> listElements) {
         this.listElements = listElements;
     }
 

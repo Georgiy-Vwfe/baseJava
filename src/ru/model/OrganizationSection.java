@@ -6,11 +6,18 @@ import java.util.Objects;
 public class OrganizationSection extends AbstractSection {
     private static final long serialVersionUID = 1L;
 
-    private final List<Organization> organizations;
+    private List<Organization> organizations;
+
+    public OrganizationSection() {
+    }
 
     public OrganizationSection(List<Organization> organizations) {
         Objects.requireNonNull(organizations, "organization must not be null");
         this.organizations = organizations;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public List<Organization> getOrganizations() {

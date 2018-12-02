@@ -10,14 +10,14 @@ public class ModelTest {
     public static Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     public static void main(String[] args) {
-        setup(contacts, sections);
+        setup((EnumMap<ContactType, String>) contacts, (EnumMap<SectionType, AbstractSection>) sections);
         Resume r1 = new Resume("1", "Григорий Кислин");
-        r1.setContacts((EnumMap<ContactType, String>) contacts);
-        r1.setSections((EnumMap<SectionType, AbstractSection>) sections);
+        r1.setContacts(contacts);
+        r1.setSections(sections);
         System.out.println(r1.toString());
     }
 
-    public static void setup(Map<ContactType, String> contacts, Map<SectionType, AbstractSection> sections) {
+    public static void setup(EnumMap<ContactType, String> contacts, EnumMap<SectionType, AbstractSection> sections) {
         contacts.put(ContactType.PHONE_NUMBER, "+7(921) 855-0482");
         contacts.put(ContactType.SKYPE, "grigory.kislin");
         contacts.put(ContactType.EMAIL, "gkislin@yandex.ru");

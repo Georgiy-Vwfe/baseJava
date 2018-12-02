@@ -1,18 +1,24 @@
 package ru.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.EnumMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
+@XmlRootElement
 public class Resume implements Comparable<Resume>, Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final String uuid;
+    private String uuid;
     private String fullName;
 
-    private EnumMap<ContactType, String> contacts;
-    private EnumMap<SectionType, AbstractSection> sections;
+    private Map<ContactType, String> contacts;
+    private Map<SectionType, AbstractSection> sections;
+
+    public Resume() {
+    }
 
     public Resume(String uuid, String fullName) {
         Objects.requireNonNull(uuid, "Uuid must not be null");
@@ -33,31 +39,47 @@ public class Resume implements Comparable<Resume>, Serializable {
         this.sections = sections;
     }
 
+    public void addContact(ContactType type, String value) {
+        contacts.put(type, value);
+    }
+
+    public void addSection(SectionType type, AbstractSection section) {
+        sections.put(type, section);
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public String getUuid() {
         return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getFullName() {
         return fullName;
     }
 
-    public EnumMap<ContactType, String> getContacts() {
-        return contacts;
-    }
-
-    public EnumMap<SectionType, AbstractSection> getSections() {
-        return sections;
-    }
-
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
-    public void setContacts(EnumMap<ContactType, String> contacts) {
+    public Map<ContactType, String> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Map<ContactType, String> contacts) {
         this.contacts = contacts;
     }
 
-    public void setSections(EnumMap<SectionType, AbstractSection> sections) {
+    public Map<SectionType, AbstractSection> getSections() {
+        return sections;
+    }
+
+    public void setSections(Map<SectionType, AbstractSection> sections) {
         this.sections = sections;
     }
 

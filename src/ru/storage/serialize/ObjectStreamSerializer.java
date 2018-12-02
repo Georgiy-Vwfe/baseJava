@@ -5,7 +5,7 @@ import ru.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamSerializer implements SerializeStrategy {
+public class ObjectStreamSerializer implements StreamSerializer {
     @Override
     public void doWrite(Resume resume, OutputStream outputStream) throws IOException {
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {

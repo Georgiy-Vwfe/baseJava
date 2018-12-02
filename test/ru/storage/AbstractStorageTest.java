@@ -10,6 +10,7 @@ import ru.model.ContactType;
 import ru.model.Resume;
 import ru.model.SectionType;
 
+import java.io.File;
 import java.util.EnumMap;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import static ru.ModelTest.sections;
 import static ru.storage.AbstractStorage.RESUME_COMPARATOR;
 
 public abstract class AbstractStorageTest {
-    protected static final String STORAGE_DIR = "storage";
+    protected static final File STORAGE_DIR = new File("storage");
     protected Storage storage;
 
     private static final String UUID_1 = "0";
@@ -42,9 +43,9 @@ public abstract class AbstractStorageTest {
     @Before
     public void setUp() {
         storage.clear();
-        RESUME_1.setContacts((EnumMap<ContactType, String>) contacts);
-        RESUME_1.setSections((EnumMap<SectionType, AbstractSection>) sections);
-        ModelTest.setup(contacts, sections);
+        RESUME_1.setContacts(contacts);
+        RESUME_1.setSections(sections);
+        ModelTest.setup((EnumMap<ContactType, String>) contacts, (EnumMap<SectionType, AbstractSection>) sections);
         storage.save(RESUME_1);
         storage.save(RESUME_2);
         storage.save(RESUME_3);

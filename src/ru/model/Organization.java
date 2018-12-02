@@ -1,5 +1,8 @@
 package ru.model;
 
+import ru.util.LocalDateAdapter;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -7,11 +10,16 @@ import java.util.Objects;
 public class Organization implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final Link homePage;
-    private final LocalDate dateFrom;
-    private final LocalDate dateTo;
-    private final String title;
-    private final String description;
+    private Link homePage;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    private LocalDate dateFrom;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    private LocalDate dateTo;
+    private String title;
+    private String description;
+
+    public Organization() {
+    }
 
     public Organization(String company, String link, LocalDate dateFrom, LocalDate dateTo, String title, String description) {
         Objects.requireNonNull(dateFrom, "dateFrom must not be null");
@@ -22,6 +30,30 @@ public class Organization implements Serializable {
         this.dateTo = dateTo;
         this.title = title;
         this.description = description;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Link getHomePage() {
+        return homePage;
+    }
+
+    public LocalDate getDateFrom() {
+        return dateFrom;
+    }
+
+    public LocalDate getDateTo() {
+        return dateTo;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override
