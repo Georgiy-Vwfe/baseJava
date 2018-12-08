@@ -3,7 +3,10 @@ package ru;
 import ru.model.*;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class ModelTest {
     public static Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
