@@ -1,6 +1,6 @@
 package ru.model;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,13 +12,13 @@ public class ListSection extends AbstractSection {
     public ListSection() {
     }
 
-    public ListSection(ArrayList listElements) {
-        Objects.requireNonNull(listElements, "listElements must not be null");
-        this.listElements = listElements;
+    public ListSection(String... items) {
+        this(Arrays.asList(items));
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public ListSection(List<String> listElements) {
+        Objects.requireNonNull(listElements, "list elements must not be null");
+        this.listElements = listElements;
     }
 
     public List<String> getListElements() {

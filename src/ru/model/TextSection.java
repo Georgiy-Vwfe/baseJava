@@ -14,10 +14,6 @@ public class TextSection extends AbstractSection {
         this.text = text;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public String getText() {
         return text;
     }

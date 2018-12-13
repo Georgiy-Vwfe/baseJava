@@ -15,13 +15,9 @@ public class Link implements Serializable {
     Link() {
     }
 
-    Link(String company, String link) {
+    public Link(String company, String link) {
         this.company = company;
-        this.link = link;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+        this.link = link == null ? "" : link;
     }
 
     public String getCompany() {

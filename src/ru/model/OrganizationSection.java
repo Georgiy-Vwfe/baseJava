@@ -19,10 +19,6 @@ public class OrganizationSection extends AbstractSection {
         this.organizations = organizations;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public List<Organization> getOrganizations() {
         return organizations;
     }

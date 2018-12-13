@@ -3,10 +3,11 @@ package ru;
 import ru.model.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.Map;
+import java.time.Month;
+import java.time.Year;
+import java.util.*;
+
+import static ru.util.DateUtil.NOW;
 
 public class ModelTest {
     public static Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
@@ -63,25 +64,88 @@ public class ModelTest {
         AbstractSection qualifications = new ListSection(new ArrayList(Arrays.asList(qualificationList)));
 
         Organization[] experienceList = new Organization[]{
-                new Organization("Java Online Projects", "http://javaops.ru/", LocalDate.of(2013, 10, 1), LocalDate.now(), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."),
-                new Organization("Wrike", "https://www.wrike.com/", LocalDate.of(2014, 10, 1), LocalDate.of(2016, 1, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."),
-                new Organization("RIT Center", null, LocalDate.of(2012, 4, 1), LocalDate.of(2014, 10, 1), "Java архитектор", "Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python"),
-                new Organization("Luxoft (Deutsche Bank)", "http://www.luxoft.ru/", LocalDate.of(2010, 12, 1), LocalDate.of(2012, 4, 1), "Ведущий программист", "Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC, SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM. Реализация RIA-приложения для администрирования, мониторинга и анализа результатов в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Highstock, Commet, HTML5."),
-                new Organization("Yota", "https://www.yota.ru/", LocalDate.of(2008, 6, 1), LocalDate.of(2010, 12, 1), "Ведущий специалист", "Дизайн и имплементация Java EE фреймворка для отдела \"Платежные Системы\" (GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2). Реализация администрирования, статистики и мониторинга фреймворка. Разработка online JMX клиента (Python/ Jython, Django, ExtJS)"),
-                new Organization("Enkata", "http://enkata.com/", LocalDate.of(2007, 3, 1), LocalDate.of(2008, 6, 1), "Разработчик ПО", "Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0, Tomcat, JMS) частей кластерного J2EE приложения (OLAP, Data mining)."),
-                new Organization("Siemens AG", "https://www.siemens.com/ru/ru/home.html", LocalDate.of(2005, 1, 1), LocalDate.of(2007, 2, 1), "Разработчик ПО", "Разработка информационной модели, проектирование интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix)."),
-                new Organization("Alcatel", "http://www.alcatel.ru/", LocalDate.of(1997, 9, 1), LocalDate.of(2005, 1, 1), "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).")
+                new Organization(
+                        new Link("Java Online Projects", "http://javaops.ru/"),
+                        new ArrayList<>(Collections.singleton(
+                                new Organization.Position(2013, Month.of(10), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок.")))
+                ),
+                new Organization(
+                        new Link("Wrike", "https://www.wrike.com/"),
+                        new ArrayList<>(Collections.singleton(
+                                new Organization.Position(2014, Month.of(10), 2014, Month.of(10), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.")))
+                ),
+                new Organization(
+                        new Link("RIT Center", null),
+                        new ArrayList<>(Collections.singleton(
+                                new Organization.Position(2012, Month.of(4), 2014, Month.of(10), "Автор проекта.", "Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python")))
+                ),
+                new Organization(
+                        new Link("Luxoft (Deutsche Bank)", "http://www.luxoft.ru/"),
+                        new ArrayList<>(Collections.singleton(
+                                new Organization.Position(2010, Month.of(12), 2012, Month.of(4), "Ведущий программист", "Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC, SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM. Реализация RIA-приложения для администрирования, мониторинга и анализа результатов в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Highstock, Commet, HTML5.")))
+                ),
+                new Organization(
+                        new Link("Yota", "https://www.yota.ru/"),
+                        new ArrayList<>(Collections.singleton(
+                                new Organization.Position(2008, Month.of(6), 2010, Month.of(12), "Ведущий специалист", "Дизайн и имплементация Java EE фреймворка для отдела \"Платежные Системы\" (GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2). Реализация администрирования, статистики и мониторинга фреймворка. Разработка online JMX клиента (Python/ Jython, Django, ExtJS)")))
+                ),
+                new Organization(
+                        new Link("Enkata", "http://enkata.com/"),
+                        new ArrayList<>(Collections.singleton(
+                                new Organization.Position(2007, Month.of(3), 2008, Month.of(6), "Разработчик ПО", "Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0, Tomcat, JMS) частей кластерного J2EE приложения (OLAP, Data mining).")))
+                ),
+                new Organization(
+                        new Link("Siemens AG", "https://www.siemens.com/ru/ru/home.html"),
+                        new ArrayList<>(Collections.singleton(
+                                new Organization.Position(2005, Month.of(1), 2007, Month.of(2), "Разработчик ПО", "Разработка информационной модели, проектирование интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix).")))
+                ),
+                new Organization(
+                        new Link("Alcatel", "http://www.alcatel.ru/"),
+                        new ArrayList<>(Collections.singleton(
+                                new Organization.Position(1997, Month.of(9), 2005, Month.of(1), "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).")))
+                ),
         };
         AbstractSection experience = new OrganizationSection(new ArrayList(Arrays.asList(experienceList)));
 
+        List<Organization.Position> list = new ArrayList<>();
+        list.add(new Organization.Position(1993, Month.of(9), 1996, Month.of(7), "Аспирантура (программист С, С++)", null));
+        list.add(new Organization.Position(1987, Month.of(9), 1993, Month.of(7), "Инженер (программист Fortran, C)", null));
+
         Organization[] educationList = new Organization[]{
-                new Organization("Coursera", "https://www.coursera.org/course/progfun", LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1), "\"Functional Programming Principles in Scala\" by Martin Odersky", null),
-                new Organization("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366", LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1), "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"", null),
-                new Organization("Siemens AG", "http://www.siemens.ru/", LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1), "3 месяца обучения мобильным IN сетям (Берлин)", null),
-                new Organization("Alcatel", "http://www.alcatel.ru/", LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1), "6 месяцев обучения цифровым телефонным сетям (Москва)", null),
-                new Organization("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "http://www.ifmo.ru/", LocalDate.of(1993 , 9, 1), LocalDate.of(1996, 7, 1), "Аспирантура (программист С, С++)", null),
-                new Organization(null, null, LocalDate.of(1987 , 9, 1), LocalDate.of(1993, 7, 1), "Инженер (программист Fortran, C)", null),
-                new Organization("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/", LocalDate.of(1984, 9, 1), LocalDate.of(1987, 6, 1), "Закончил с отличием", null)
+                new Organization(
+                        new Link("Coursera", "https://www.coursera.org/course/progfun"),
+                        new ArrayList<>(Collections.singleton(
+                                new Organization.Position(2013, Month.of(3), 2013, Month.of(5), "\"Functional Programming Principles in Scala\" by Martin Odersky", null)))
+                ),
+                new Organization(
+                        new Link("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366"),
+                        new ArrayList<>(Collections.singleton(
+                                new Organization.Position(2011, Month.of(3), 2011, Month.of(4), "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"", null)))
+                ),
+                new Organization(
+                        new Link("Siemens AG", "http://www.siemens.ru/"),
+                        new ArrayList<>(Collections.singleton(
+                                new Organization.Position(2005, Month.of(1), 2005, Month.of(4), "3 месяца обучения мобильным IN сетям (Берлин)", null)))
+                ),
+                new Organization(
+                        new Link("Alcatel", "http://www.alcatel.ru/"),
+                        new ArrayList<>(Collections.singleton(
+                                new Organization.Position(1997, Month.of(9), 1998, Month.of(3), "6 месяцев обучения цифровым телефонным сетям (Москва)", null)))
+                ),
+                new Organization(
+                        new Link("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "http://www.ifmo.ru/"),
+                        list
+                ),
+                new Organization(
+                        new Link("Alcatel", "http://www.alcatel.ru/"),
+                        new ArrayList<>(Collections.singleton(
+                                new Organization.Position(1997, Month.of(9), 1998, Month.of(3), "6 месяцев обучения цифровым телефонным сетям (Москва)", null)))
+                ),
+                new Organization(
+                        new Link("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/"),
+                        new ArrayList<>(Collections.singleton(
+                                new Organization.Position(1984, Month.of(9), 1987, Month.of(6), "Закончил с отличием", null)))
+                )
         };
         AbstractSection education = new OrganizationSection(new ArrayList(Arrays.asList(educationList)));
 

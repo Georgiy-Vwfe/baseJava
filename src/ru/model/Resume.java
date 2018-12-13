@@ -39,16 +39,12 @@ public class Resume implements Comparable<Resume>, Serializable {
         this.sections = sections;
     }
 
-    public void addContact(ContactType type, String value) {
-        contacts.put(type, value);
+    public void addContact(ContactType contactType, String str) {
+        contacts.put(contactType, str);
     }
 
-    public void addSection(SectionType type, AbstractSection section) {
-        sections.put(type, section);
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public void addSection(SectionType sectionType, AbstractSection section) {
+        sections.put(sectionType, section);
     }
 
     public String getUuid() {
