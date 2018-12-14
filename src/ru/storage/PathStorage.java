@@ -8,9 +8,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class PathStorage extends AbstractStorage<Path> {
     private Path directory;
@@ -37,7 +37,6 @@ public class PathStorage extends AbstractStorage<Path> {
     @Override
     public int size() {
         try {
-
             return (int) Files.list(directory).count();
         } catch (IOException e) {
             throw new StorageException("Path read error", null);
@@ -96,12 +95,9 @@ public class PathStorage extends AbstractStorage<Path> {
     @Override
     public List<Resume> getResumeList() {
         try {
-            Object[] paths = Files.list(directory).toArray();
-            List<Resume> list = new ArrayList<>(paths.length);
-            for (Object Path : paths) {
-                list.add(doGet((Path) Path));
-            }
-            return list;
+            return Files.list(directory)
+                    .map(this::doGet)
+                    .collect(Collectors.toList());
         } catch (IOException e) {
             throw new StorageException("path read error", null);
         }
